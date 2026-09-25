@@ -1,0 +1,971 @@
+export interface MenuItem {
+  name: string;
+  nameGu?: string;
+  price: number;
+  description?: string;
+  isSpecial?: boolean;
+  isSpicy?: boolean;
+  tag?: string;
+}
+
+export interface MenuCategory {
+  id: string;
+  title: string;
+  gujaratiTitle: string;
+  cardImage: string;
+  badge?: string;
+  items: MenuItem[];
+}
+
+export const menuCategories: MenuCategory[] = [
+  {
+    "id": "mocktails",
+    "title": "Mocktails & Snowball Floats",
+    "gujaratiTitle": "મોકટેલ્સ એન્ડ સ્નોબોલ ફ્લોટ્સ",
+    "cardImage": "/menu/unnamed.webp",
+    "items": [
+      {
+        "name": "6 Rainbow Shooters",
+        "nameGu": "૬ રેઇનબો શૂટર",
+        "price": 210,
+        "isSpecial": true
+      },
+      {
+        "name": "Pina Colada",
+        "nameGu": "પીના કોલાડા",
+        "price": 240
+      },
+      {
+        "name": "Kiwi Colada",
+        "nameGu": "કીવી કોલાડા",
+        "price": 240
+      },
+      {
+        "name": "Misty Fruit Punch",
+        "nameGu": "મીસ્ટી ફ્રુટ પંચ",
+        "price": 240
+      },
+      {
+        "name": "Hawaiian Blue Surfer",
+        "nameGu": "હવાઇન બ્લુ સર્ફર",
+        "price": 240,
+        "isSpecial": true
+      },
+      {
+        "name": "Earthquakes",
+        "nameGu": "અર્થકવીક્સ",
+        "price": 240
+      },
+      {
+        "name": "Black & White",
+        "nameGu": "બ્લેક એન્ડ વ્હાઇટ",
+        "price": 250
+      },
+      {
+        "name": "Orange Sunrise",
+        "nameGu": "ઓરેન્જ સનરાઈઝ",
+        "price": 250
+      },
+      {
+        "name": "Strawberry Country",
+        "nameGu": "સ્ટ્રોબરી કન્ટ્રી",
+        "price": 250
+      },
+      {
+        "name": "Mint Mojito",
+        "nameGu": "મિન્ટ મોજીટો",
+        "price": 250
+      },
+      {
+        "name": "Water Melon Cooler",
+        "nameGu": "વોટર મેલન કુલર",
+        "price": 260
+      },
+      {
+        "name": "Kaju Anjeer Milk Shake",
+        "nameGu": "કાજુ અંજીર શેક",
+        "price": 250
+      },
+      {
+        "name": "Cold Coffee",
+        "nameGu": "કોલ્ડ કોફી",
+        "price": 250
+      }
+    ]
+  },
+  {
+    "id": "basmati_sizzlers",
+    "title": "Basmati Ka Khazana & Sizzlers",
+    "gujaratiTitle": "બાસમતી કા ખઝાના & સીઝલર્સ",
+    "cardImage": "/menu/unnamed (1).webp",
+    "items": [
+      {
+        "name": "Steamed Rice",
+        "nameGu": "સ્ટીમ્ડ રાઇસ",
+        "price": 210
+      },
+      {
+        "name": "Jeera Rice",
+        "nameGu": "જીરા રાઇસ",
+        "price": 225
+      },
+      {
+        "name": "Hyderabadi Biryani",
+        "nameGu": "હૈદરાબાદી બિરયાની",
+        "price": 310,
+        "isSpicy": true
+      },
+      {
+        "name": "Veg. Handi Biryani",
+        "nameGu": "વેજ. હાંડી બિરયાની",
+        "price": 310
+      },
+      {
+        "name": "Veg. Pulao",
+        "nameGu": "વેજ. પુલાવ",
+        "price": 270
+      },
+      {
+        "name": "Veg. Biryani",
+        "nameGu": "વેજ. બિરયાની",
+        "price": 285
+      },
+      {
+        "name": "Dum Biryani",
+        "nameGu": "દમ બિરયાની",
+        "price": 340
+      },
+      {
+        "name": "Palak Rice",
+        "nameGu": "પાલક રાઇસ",
+        "price": 265
+      },
+      {
+        "name": "Masala Khichdi",
+        "nameGu": "મસાલા ખીચડી",
+        "price": 320
+      },
+      {
+        "name": "Tawa Ka Chawal (Served with Boondi Raita)",
+        "nameGu": "તવા કા ચાવલ (સર્વ વીથ બુંદી રાયતા)",
+        "price": 340,
+        "isSpecial": true
+      },
+      {
+        "name": "Veg. Sizzler",
+        "nameGu": "વેજ. સીઝલર",
+        "price": 710
+      },
+      {
+        "name": "Chinese Sizzler",
+        "nameGu": "ચાઇનીઝ સીઝલર",
+        "price": 715
+      },
+      {
+        "name": "Paneer Shashlik Sizzler",
+        "nameGu": "પનીર શાસ્લીક સીઝલર",
+        "price": 840,
+        "isSpecial": true
+      },
+      {
+        "name": "Oriental Sizzler",
+        "nameGu": "ઓરીયન્ટલ સીઝલર",
+        "price": 910
+      }
+    ]
+  },
+  {
+    "id": "soups_salads",
+    "title": "Soups & Fresh Salads",
+    "gujaratiTitle": "સુપ એન્ડ સલાડ",
+    "cardImage": "/menu/unnamed (2).webp",
+    "items": [
+      {
+        "name": "Tomato Soup",
+        "nameGu": "ટોમેટો સુપ",
+        "price": 210
+      },
+      {
+        "name": "Manchow Soup",
+        "nameGu": "મનચાવ સુપ",
+        "price": 220
+      },
+      {
+        "name": "Broccoli Almond Soup",
+        "nameGu": "બ્રોકલી અલ્મોન્ડ સુપ",
+        "price": 280,
+        "isSpecial": true
+      },
+      {
+        "name": "Hot & Sour Soup",
+        "nameGu": "હોટ એન્ડ સોર સુપ",
+        "price": 240,
+        "isSpicy": true
+      },
+      {
+        "name": "Sweet Corn Veg. Soup",
+        "nameGu": "સ્વીટ કોર્ન વેજીટેબલ સુપ",
+        "price": 260
+      },
+      {
+        "name": "Tomato Herb Soup",
+        "nameGu": "ટોમેટો હર્બ સુપ",
+        "price": 260
+      },
+      {
+        "name": "Green Herb Soup",
+        "nameGu": "ગ્રીન હર્બ સુપ",
+        "price": 255
+      },
+      {
+        "name": "Thai Soup",
+        "nameGu": "થાઇ સુપ",
+        "price": 270,
+        "isSpecial": true
+      },
+      {
+        "name": "Lemon Coriander Soup",
+        "nameGu": "લેમન કોરીયેંડર સુપ",
+        "price": 245
+      },
+      {
+        "name": "Veg. Clear Soup",
+        "nameGu": "વેજીટેબલ ક્લીયર સુપ",
+        "price": 210
+      },
+      {
+        "name": "Leek Potato Salad",
+        "nameGu": "લીક પોટેટો સલાડ",
+        "price": 240
+      },
+      {
+        "name": "Russian Salad",
+        "nameGu": "રશીયન સલાડ",
+        "price": 280
+      },
+      {
+        "name": "Italian Salad",
+        "nameGu": "ઇટાલીયન સલાડ",
+        "price": 235
+      },
+      {
+        "name": "Green Salad",
+        "nameGu": "ગ્રીન સલાડ",
+        "price": 140
+      },
+      {
+        "name": "Waldorf Salad",
+        "nameGu": "વોલ્ડરોફ સલાડ",
+        "price": 320
+      }
+    ]
+  },
+  {
+    "id": "chinese_tandoor",
+    "title": "Chinese & Tandoor Khazana",
+    "gujaratiTitle": "ચાઇનીઝ & તંદુર",
+    "cardImage": "/menu/unnamed (3).webp",
+    "items": [
+      {
+        "name": "Veg. Manchurian Dry/Gravy",
+        "nameGu": "વેજ. મન્ચુરીયન ડ્રાય/ગ્રેવી",
+        "price": 320
+      },
+      {
+        "name": "Veg. in Schezwan Sauce",
+        "nameGu": "વેજીટેબલ સેઝવાન સોસ",
+        "price": 290
+      },
+      {
+        "name": "American Chop suey",
+        "nameGu": "અમેરીકન ચોપ્સી",
+        "price": 310
+      },
+      {
+        "name": "Chinese Bhel",
+        "nameGu": "ચાઇનીઝ ભેલ",
+        "price": 310
+      },
+      {
+        "name": "Hakka Noodles",
+        "nameGu": "હક્કા નુડલ્સ",
+        "price": 285
+      },
+      {
+        "name": "Paneer Chilly Dry/Gravy",
+        "nameGu": "પનીર ચીલી ડ્રાય/ગ્રેવી",
+        "price": 380,
+        "isSpicy": true
+      },
+      {
+        "name": "Paneer Schezwan",
+        "nameGu": "પનીર સેઝવાન",
+        "price": 380
+      },
+      {
+        "name": "Veg. Fried Rice",
+        "nameGu": "વેજ. ફ્રાઇડ રાઇસ",
+        "price": 295
+      },
+      {
+        "name": "Combination Fried Rice",
+        "nameGu": "કોમ્બીનેશન ફ્રાઇડ રાઇસ",
+        "price": 320
+      },
+      {
+        "name": "B&B Special Noodles",
+        "nameGu": "બી એન્ડ બી સ્પેશીયલ નુડલ્સ",
+        "price": 305,
+        "isSpecial": true
+      },
+      {
+        "name": "Paneer Malai Kabab",
+        "nameGu": "પનીર મલાઈ કબાબ",
+        "price": 380
+      },
+      {
+        "name": "Paneer Tikka (Dry)",
+        "nameGu": "પનીર ટીક્કા (ડ્રાય)",
+        "price": 345
+      },
+      {
+        "name": "Veg. Seekh Kabab",
+        "nameGu": "વેજીટેબલ સીખ કબાબ",
+        "price": 280
+      },
+      {
+        "name": "Paneer Hariyali Kabab",
+        "nameGu": "પનીર હરિયાલી કબાબ",
+        "price": 375
+      },
+      {
+        "name": "Tandoori Phool Gobi",
+        "nameGu": "તંદુરી ફુલ ગોબી",
+        "price": 260
+      },
+      {
+        "name": "Assorted Kabab Platter",
+        "nameGu": "અસોર્ટેડ કબાબ પ્લેટર",
+        "price": 720,
+        "isSpecial": true
+      }
+    ]
+  },
+  {
+    "id": "breads_dal",
+    "title": "Indian Breads & Yummy Dal",
+    "gujaratiTitle": "ઇન્ડિયન બ્રેડ્સ & દાલ",
+    "cardImage": "/menu/unnamed (4).webp",
+    "items": [
+      {
+        "name": "Plain Roti",
+        "nameGu": "પ્લેઇન રોટી",
+        "price": 50
+      },
+      {
+        "name": "Butter Roti",
+        "nameGu": "બટર રોટી",
+        "price": 60
+      },
+      {
+        "name": "Plain Naan/Kulcha/Paratha",
+        "nameGu": "પ્લેઇન નાન/કુલચા/પરાઠા",
+        "price": 75
+      },
+      {
+        "name": "Butter Naan/Kulcha/Paratha",
+        "nameGu": "બટર નાન/કુલચા/પરાઠા",
+        "price": 80
+      },
+      {
+        "name": "Methi Paratha",
+        "nameGu": "મેથી પરાઠા",
+        "price": 100
+      },
+      {
+        "name": "Pudina Paratha",
+        "nameGu": "ફુદીના પરાઠા",
+        "price": 100
+      },
+      {
+        "name": "Bharwan Kulcha/Paratha",
+        "nameGu": "ભરવાન કુલચા/પરાઠા",
+        "price": 180
+      },
+      {
+        "name": "Cheese Naan",
+        "nameGu": "ચીઝ નાન",
+        "price": 210
+      },
+      {
+        "name": "Garlic Naan",
+        "nameGu": "ગાર્લિક નાન",
+        "price": 170
+      },
+      {
+        "name": "Missi Roti",
+        "nameGu": "મીસ્સી રોટી",
+        "price": 99
+      },
+      {
+        "name": "Roti (Jeera/Methi/Hajma)",
+        "nameGu": "રોટી (જીરા/મેથી/અજમા)",
+        "price": 90
+      },
+      {
+        "name": "Chilly Garlic Paratha",
+        "nameGu": "ચીલી ગાર્લિક પરાઠા",
+        "price": 140
+      },
+      {
+        "name": "Lachha Paratha",
+        "nameGu": "લછા પરાઠા",
+        "price": 90
+      },
+      {
+        "name": "Bread Basket",
+        "nameGu": "બ્રેડ બાસ્કેટ",
+        "price": 630
+      },
+      {
+        "name": "Mexican Naan",
+        "nameGu": "મેક્સિકન નાન",
+        "price": 210,
+        "isSpecial": true
+      },
+      {
+        "name": "Dal Makhani",
+        "nameGu": "દાલ મખની",
+        "price": 290
+      },
+      {
+        "name": "Dal Tadka",
+        "nameGu": "દાલ તડકા",
+        "price": 280
+      },
+      {
+        "name": "Dal Palak",
+        "nameGu": "દાલ પાલક",
+        "price": 280
+      },
+      {
+        "name": "Dal Methi",
+        "nameGu": "દાલ મેથી",
+        "price": 270
+      },
+      {
+        "name": "Dal Fry",
+        "nameGu": "દાલ ફ્રાય",
+        "price": 270
+      }
+    ]
+  },
+  {
+    "id": "subzi_mandi",
+    "title": "Subzi Mandi Se",
+    "gujaratiTitle": "સબ્જી મંડી સે",
+    "cardImage": "/menu/unnamed (5).webp",
+    "items": [
+      {
+        "name": "Nargis Kofta",
+        "nameGu": "નરગીસ કોફતા",
+        "price": 340
+      },
+      {
+        "name": "Jafrani Kofta",
+        "nameGu": "જાફરાની કોફતા",
+        "price": 365,
+        "isSpecial": true
+      },
+      {
+        "name": "Hariyali Kofta Curry",
+        "nameGu": "હરિયાલી કોફતા કરી",
+        "price": 330
+      },
+      {
+        "name": "B&B Sp. Veg.",
+        "nameGu": "બી. એન બી. સ્પે. વેજ",
+        "price": 399,
+        "isSpecial": true
+      },
+      {
+        "name": "Diwani Handi Subzi",
+        "nameGu": "દિવાની હાંડી સબ્જી",
+        "price": 325
+      },
+      {
+        "name": "Veg. Makhanwala",
+        "nameGu": "વેજ. મખ્ખનવાલા",
+        "price": 330
+      },
+      {
+        "name": "Kadai Subzi",
+        "nameGu": "કડાઈ સબ્જી",
+        "price": 335
+      },
+      {
+        "name": "Veg. Rimix",
+        "nameGu": "વેજ. રીમીક્ષ",
+        "price": 325
+      },
+      {
+        "name": "Veg. Hyderabadi",
+        "nameGu": "વેજ. હૈદરાબાદી",
+        "price": 330
+      },
+      {
+        "name": "Veg. Toofani",
+        "nameGu": "વેજ. તુફાની",
+        "price": 330,
+        "isSpicy": true
+      },
+      {
+        "name": "Veg. Jaipuri",
+        "nameGu": "વેજ. જયપુરી",
+        "price": 315
+      },
+      {
+        "name": "Veg. Jalfrezi",
+        "nameGu": "વેજ. જલફ્રેજી",
+        "price": 325
+      },
+      {
+        "name": "Veg. Kolhapuri",
+        "nameGu": "વેજ. કોલ્હાપુરી",
+        "price": 330
+      },
+      {
+        "name": "Veg. Keema Matar",
+        "nameGu": "વેજ. ખીમા મટર",
+        "price": 320
+      },
+      {
+        "name": "Veg. Peshawari",
+        "nameGu": "વેજ. પેશાવરી",
+        "price": 330
+      },
+      {
+        "name": "Veg. Pahadi Khazana",
+        "nameGu": "વેજ. પહાડી ખજાના",
+        "price": 455
+      },
+      {
+        "name": "Aloo Gobi Jeera/Palak/Methi Matar",
+        "nameGu": "આલુ/ગોબી/જીરા/પાલક/મેથી મટર",
+        "price": 310
+      },
+      {
+        "name": "Chana Masala",
+        "nameGu": "ચના મસાલા",
+        "price": 310
+      },
+      {
+        "name": "Stuffed Capsicum",
+        "nameGu": "સ્ટફ્ડ કેપ્સીકમ",
+        "price": 310
+      },
+      {
+        "name": "Lazeez Kheema Masala",
+        "nameGu": "લઝીઝ ખીમા મસાલા",
+        "price": 399
+      }
+    ]
+  },
+  {
+    "id": "accompaniment_international",
+    "title": "Accompaniment & International Specialities",
+    "gujaratiTitle": "અકમપનીમેન્ટ & ઇન્ટરનેશનલ",
+    "cardImage": "/menu/unnamed (6).webp",
+    "items": [
+      {
+        "name": "Lemon Ice Tea",
+        "nameGu": "લેમન આઇસ ટી",
+        "price": 205
+      },
+      {
+        "name": "Fresh Lime Water",
+        "nameGu": "ફ્રેશ લાઇમ વોટર",
+        "price": 65
+      },
+      {
+        "name": "Fresh Lime Soda",
+        "nameGu": "ફ્રેશ લાઇમ સોડા",
+        "price": 90
+      },
+      {
+        "name": "Plain Butter Milk",
+        "nameGu": "છાશ",
+        "price": 60
+      },
+      {
+        "name": "Masala Butter Milk",
+        "nameGu": "મસાલા છાશ",
+        "price": 80
+      },
+      {
+        "name": "Lassi (Sweet/Salted)",
+        "nameGu": "લસ્સી",
+        "price": 140
+      },
+      {
+        "name": "Raita (Pineapple, Boondi, Mix Veg.)",
+        "nameGu": "રાયતા",
+        "price": 155
+      },
+      {
+        "name": "Papad (Roasted)",
+        "nameGu": "પાપડ (રોસ્ટેડ)",
+        "price": 45
+      },
+      {
+        "name": "Papad (Fried)",
+        "nameGu": "પાપડ (ફ્રાય)",
+        "price": 65
+      },
+      {
+        "name": "Masala Papad",
+        "nameGu": "મસાલા પાપડ",
+        "price": 90
+      },
+      {
+        "name": "Aerated Beverages (Cold Drinks)",
+        "nameGu": "એરેટેડ બેવરેજીસ",
+        "price": 65
+      },
+      {
+        "name": "Papad Churi",
+        "nameGu": "પાપડ ચુરી",
+        "price": 165,
+        "isSpecial": true
+      },
+      {
+        "name": "Baked Vegetables",
+        "nameGu": "બેક્ડ વેજીટેબલ્સ",
+        "price": 425
+      },
+      {
+        "name": "Baked Macaroni & Pineapple",
+        "nameGu": "બેક્ડ મેકરોની એન્ડ પાઇનેપલ",
+        "price": 485,
+        "isSpecial": true
+      },
+      {
+        "name": "Baked Au-gratine",
+        "nameGu": "બેક્ડ ઓ-ગ્રેટીન",
+        "price": 485
+      },
+      {
+        "name": "Baked Spaghetti",
+        "nameGu": "બેક્ડ સ્પેગેટી",
+        "price": 445
+      },
+      {
+        "name": "French Revoli",
+        "nameGu": "ફેન્ચ રીવોલી",
+        "price": 445
+      }
+    ]
+  },
+  {
+    "id": "punjabi_pakwaan",
+    "title": "Punjabi Pakwaan",
+    "gujaratiTitle": "પંજાબી પકવાન",
+    "cardImage": "/menu/unnamed (7).webp",
+    "items": [
+      {
+        "name": "Paneer Tikka Masala",
+        "nameGu": "પનીર ટીક્કા મસાલા",
+        "price": 430
+      },
+      {
+        "name": "Paneer Makhanwala",
+        "nameGu": "પનીર મખ્ખનવાલા",
+        "price": 410
+      },
+      {
+        "name": "Kadai Paneer",
+        "nameGu": "કડાઈ પનીર",
+        "price": 410
+      },
+      {
+        "name": "Paneer Pasanda",
+        "nameGu": "પનીર પસંદા",
+        "price": 415
+      },
+      {
+        "name": "Paneer Butter Masala",
+        "nameGu": "પનીર બટર મસાલા",
+        "price": 405
+      },
+      {
+        "name": "Paneer Bhurji",
+        "nameGu": "પનીર ભુર્જી",
+        "price": 405
+      },
+      {
+        "name": "Paneer Panchwati",
+        "nameGu": "પનીર પંચવટી",
+        "price": 460
+      },
+      {
+        "name": "Paneer Angara",
+        "nameGu": "પનીર અંગારા",
+        "price": 410,
+        "isSpicy": true
+      },
+      {
+        "name": "Paneer Mughlai",
+        "nameGu": "પનીર મુગલાઈ",
+        "price": 385
+      },
+      {
+        "name": "Kaju Curry",
+        "nameGu": "કાજુ કરી",
+        "price": 495
+      },
+      {
+        "name": "Reshmi Paneer",
+        "nameGu": "રેશમી પનીર",
+        "price": 399
+      },
+      {
+        "name": "Balti Paneer",
+        "nameGu": "બાલ્ટી પનીર",
+        "price": 400,
+        "isSpicy": true
+      },
+      {
+        "name": "Cheese Angoori",
+        "nameGu": "ચીઝ અંગુરી",
+        "price": 505
+      },
+      {
+        "name": "Mushroom Masala",
+        "nameGu": "મશરૂમ મસાલા",
+        "price": 460
+      },
+      {
+        "name": "Malai Kofta (Sweet)",
+        "nameGu": "મલાઈ કોફતા (સ્વીટ)",
+        "price": 435
+      },
+      {
+        "name": "Khoya Kaju (Sweet)",
+        "nameGu": "ખોયા કાજુ (સ્વીટ)",
+        "price": 550
+      },
+      {
+        "name": "Navrattan Korma (Sweet)",
+        "nameGu": "નવરત્ન કોરમા (સ્વીટ)",
+        "price": 445
+      }
+    ]
+  },
+  {
+    "id": "starters",
+    "title": "Starters & More",
+    "gujaratiTitle": "સ્ટાર્ટર્સ & મોર",
+    "cardImage": "/menu/unnamed (8).webp",
+    "items": [
+      {
+        "name": "Hot Pot Paneer",
+        "nameGu": "હોટ પોટ પનીર",
+        "price": 399
+      },
+      {
+        "name": "Broccoli Chilly Dry",
+        "nameGu": "બ્રોકલી ચીલી ડ્રાય",
+        "price": 375,
+        "isSpicy": true
+      },
+      {
+        "name": "Hara Bhara Kabab",
+        "nameGu": "હરા ભરા કબાબ",
+        "price": 270
+      },
+      {
+        "name": "Crispy Vegetables",
+        "nameGu": "ક્રિસ્પી વેજીટેબલ્સ",
+        "price": 299
+      },
+      {
+        "name": "Cheese Balls",
+        "nameGu": "ચીઝ બોલ્સ",
+        "price": 400
+      },
+      {
+        "name": "French Fries",
+        "nameGu": "ફ્રેન્ચ ફ્રાઇસ",
+        "price": 199
+      },
+      {
+        "name": "Paneer Red Cook",
+        "nameGu": "પનીર રેડ કુક",
+        "price": 370
+      },
+      {
+        "name": "Veg. Spring Roll",
+        "nameGu": "વેજ. સ્પ્રિંગ રોલ",
+        "price": 305
+      },
+      {
+        "name": "Vegetable 65",
+        "nameGu": "વેજીટેબલ ૬૫",
+        "price": 300
+      },
+      {
+        "name": "Pesto Paneer",
+        "nameGu": "પેસ્ટો પનીર",
+        "price": 399
+      },
+      {
+        "name": "Oregano Paneer",
+        "nameGu": "ઓરેગનો પનીર",
+        "price": 399
+      },
+      {
+        "name": "Boat & Bite Dry Paneer",
+        "nameGu": "બોટ એન્ડ બાઇટ ડ્રાય પનીર",
+        "price": 410,
+        "isSpecial": true
+      }
+    ]
+  },
+  {
+    "id": "pasta",
+    "title": "Italian Pasta",
+    "gujaratiTitle": "ઇટાલિયન પાસ્તા",
+    "cardImage": "/menu/unnamed (9).webp",
+    "items": [
+      {
+        "name": "Arrabiata Pasta",
+        "nameGu": "અરાબીટા પાસ્તા",
+        "price": 435,
+        "isSpicy": true
+      },
+      {
+        "name": "Pesto Pasta",
+        "nameGu": "પેસ્ટો પાસ્તા",
+        "price": 435
+      },
+      {
+        "name": "Alfredo Pasta",
+        "nameGu": "અલફ્રેડો પાસ્તા",
+        "price": 430
+      },
+      {
+        "name": "Oriental Pasta (dry)",
+        "nameGu": "ઓરીયન્ટેલ પાસ્તા (ડ્રાય)",
+        "price": 425
+      },
+      {
+        "name": "Pepperoni Pasta (dry)",
+        "nameGu": "પેપ્રોની પાસ્તા (ડ્રાય)",
+        "price": 425
+      }
+    ]
+  }
+];
+
+export interface MenuPageInfo {
+  index: number;
+  id: string;
+  title: string;
+  gujaratiTitle: string;
+  image: string;
+  itemCount: number;
+  featuredDishes: string[];
+}
+
+export const menuPages: MenuPageInfo[] = [
+  {
+    index: 0,
+    id: "mocktails",
+    title: "Mocktails & Snowball Floats",
+    gujaratiTitle: "મોકટેલ્સ એન્ડ સ્નોબોલ ફ્લોટ્સ",
+    image: "/menu/unnamed.webp",
+    itemCount: 13,
+    featuredDishes: ["6 Rainbow Shooters", "Hawaiian Blue Surfer", "Pina Colada", "Mint Mojito"]
+  },
+  {
+    index: 1,
+    id: "basmati_sizzlers",
+    title: "Basmati Ka Khazana & Sizzlers",
+    gujaratiTitle: "બાસમતી કા ખઝાના & સીઝલર્સ",
+    image: "/menu/unnamed (1).webp",
+    itemCount: 14,
+    featuredDishes: ["Paneer Shashlik Sizzler", "Tawa Ka Chawal", "Veg. Sizzler", "Hyderabadi Biryani"]
+  },
+  {
+    index: 2,
+    id: "soups_salads",
+    title: "Soups & Fresh Salads",
+    gujaratiTitle: "સુપ એન્ડ સલાડ",
+    image: "/menu/unnamed (2).webp",
+    itemCount: 15,
+    featuredDishes: ["Broccoli Almond Soup", "Thai Soup", "Manchow Soup", "Waldorf Salad"]
+  },
+  {
+    index: 3,
+    id: "chinese_tandoor",
+    title: "Chinese & Tandoor Khazana",
+    gujaratiTitle: "ચાઇનીઝ & તંદુર",
+    image: "/menu/unnamed (3).webp",
+    itemCount: 16,
+    featuredDishes: ["B&B Special Noodles", "Assorted Kabab Platter", "Paneer Malai Kabab", "Hakka Noodles"]
+  },
+  {
+    index: 4,
+    id: "breads_dal",
+    title: "Indian Breads & Yummy Dal",
+    gujaratiTitle: "ઇન્ડિયન બ્રેડ્સ & દાલ",
+    image: "/menu/unnamed (4).webp",
+    itemCount: 20,
+    featuredDishes: ["Mexican Naan", "Cheese Naan", "Dal Makhani", "Bread Basket"]
+  },
+  {
+    index: 5,
+    id: "subzi_mandi",
+    title: "Subzi Mandi Se",
+    gujaratiTitle: "સબ્જી મંડી સે",
+    image: "/menu/unnamed (5).webp",
+    itemCount: 20,
+    featuredDishes: ["B&B Sp. Veg.", "Jafrani Kofta", "Veg. Hyderabadi", "Diwani Handi Subzi"]
+  },
+  {
+    index: 6,
+    id: "accompaniment_international",
+    title: "Accompaniment & International",
+    gujaratiTitle: "અકમપનીમેન્ટ & ઇન્ટરનેશનલ",
+    image: "/menu/unnamed (6).webp",
+    itemCount: 17,
+    featuredDishes: ["Baked Macaroni & Pineapple", "Papad Churi", "French Revoli", "Fresh Lime Soda"]
+  },
+  {
+    index: 7,
+    id: "punjabi_pakwaan",
+    title: "Punjabi Pakwaan",
+    gujaratiTitle: "પંજાબી પકવાન",
+    image: "/menu/unnamed (7).webp",
+    itemCount: 17,
+    featuredDishes: ["Paneer Tikka Masala", "Cheese Angoori", "Kaju Curry", "Paneer Angara"]
+  },
+  {
+    index: 8,
+    id: "starters",
+    title: "Starters & More",
+    gujaratiTitle: "સ્ટાર્ટર્સ & મોર",
+    image: "/menu/unnamed (8).webp",
+    itemCount: 12,
+    featuredDishes: ["Boat & Bite Dry Paneer", "Cheese Balls", "Broccoli Chilly Dry", "Pesto Paneer"]
+  },
+  {
+    index: 9,
+    id: "pasta",
+    title: "Italian Pasta",
+    gujaratiTitle: "ઇટાલિયન પાસ્તા",
+    image: "/menu/unnamed (9).webp",
+    itemCount: 5,
+    featuredDishes: ["Arrabiata Pasta", "Pesto Pasta", "Alfredo Pasta", "Pepperoni Pasta"]
+  }
+];
