@@ -1,234 +1,245 @@
 import React, { useState } from 'react';
-import { SectionHeading } from '../common/SectionHeading';
-import { MenuSlider } from './MenuSlider';
-import { DigitalMenuGrid } from './DigitalMenuGrid';
-import { Layers, Sparkles, LayoutGrid, UtensilsCrossed } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Utensils, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
 
-export const MenuSection: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'carousel' | 'signatures' | 'directory'>('carousel');
+const MENU_CATEGORIES = [
+  {
+    id: "unlimited-feast",
+    name: "Unlimited Feast",
+    cardCode: "Cards 01",
+    subtitle: "Pure Veg Unlimited Lunch & Dinner @ ₹350/-",
+    dishes: [
+      {
+        name: "Unlimited Pure Veg Dining Feast",
+        price: "₹350/-",
+        description: "Unlimited starters, subzi mandi specialties, live tawa rice, Indian breads, dal, and ice cream desserts.",
+        badge: "UNLIMITED FEAST",
+        image: "/menu/unnamed.webp"
+      },
+      {
+        name: "Weekend Special Cruise Thali",
+        price: "₹350/-",
+        description: "Chef's weekend menu featuring royal paneer gravy, mocktail shooters, and freshly baked garlic naan.",
+        badge: "WEEKEND SPECIAL",
+        image: "/menu/unnamed (1).webp"
+      }
+    ]
+  },
+  {
+    id: "signatures",
+    name: "Signature Bites",
+    cardCode: "Cards 02 – 04",
+    subtitle: "Handcrafted Chef Specialties",
+    dishes: [
+      {
+        name: "Paneer Shashlik Sizzler",
+        price: "₹840/-",
+        description: "Char-grilled paneer sizzled over fresh buttered vegetables and aromatic basmati rice.",
+        badge: "SIGNATURE SIZZLER",
+        image: "/menu/unnamed (3).webp"
+      },
+      {
+        name: "B&B Special Noodles",
+        price: "₹305/-",
+        description: "Signature wok-tossed noodles with colorful bell peppers, crunchy greens, and house spices.",
+        badge: "POPULAR",
+        image: "/menu/unnamed (4).webp"
+      }
+    ]
+  },
+  {
+    id: "mocktails",
+    name: "Mocktails & Floats",
+    cardCode: "Cards 05 – 06",
+    subtitle: "Chilled Refreshing Cruise Beverages",
+    dishes: [
+      {
+        name: "6 Rainbow Shooters",
+        price: "₹210/-",
+        description: "Six vibrant, layered fruit mocktail shooters served over crushed ice.",
+        badge: "MUST TRY",
+        image: "/menu/unnamed (1).webp"
+      },
+      {
+        name: "Hawaiian Blue Surfer",
+        price: "₹240/-",
+        description: "Cool ocean blue curaçao blended with pineapple juice and coconut cream.",
+        badge: "HOUSE FAVORITE",
+        image: "/menu/unnamed.webp"
+      }
+    ]
+  },
+  {
+    id: "subzi-mandi",
+    name: "Subzi Mandi & Gravies",
+    cardCode: "Cards 07 – 08",
+    subtitle: "Royal Indian Curries",
+    dishes: [
+      {
+        name: "Jafrani Kofta",
+        price: "₹365/-",
+        description: "Delicate paneer dumplings simmered in a saffron-infused rich royal gravy.",
+        badge: "ROYAL GRAVY",
+        image: "/menu/unnamed (5).webp"
+      },
+      {
+        name: "Paneer Tikka Masala",
+        price: "₹380/-",
+        description: "Clay-oven roasted paneer cubes tossed in rich tomato and cashew gravy.",
+        badge: "CHEF SPECIAL",
+        image: "/menu/unnamed (7).webp"
+      }
+    ]
+  },
+  {
+    id: "italian-continental",
+    name: "Italian & International",
+    cardCode: "Cards 09 – 10",
+    subtitle: "Baked Delicacies & Pastas",
+    dishes: [
+      {
+        name: "Baked Macaroni & Pineapple",
+        price: "₹485/-",
+        description: "Tender macaroni with sweet pineapple chunks baked with golden mozzarella crust.",
+        badge: "CONTINENTAL",
+        image: "/menu/unnamed (6).webp"
+      },
+      {
+        name: "Boat & Bite Dry Paneer",
+        price: "₹340/-",
+        description: "Crispy starter paneer cubes tossed with wok peppers and aromatic herbs.",
+        badge: "STARTER",
+        image: "/menu/unnamed (8).webp"
+      }
+    ]
+  }
+];
 
-  // Verified signature items directly from the physical menu
-  const signatureItems = [
-    {
-      name: "Paneer Shashlik Sizzler",
-      nameGu: "પનીર શાસ્લીક સીઝલર",
-      price: 840,
-      category: "Basmati Ka Khazana & Sizzlers",
-      description: "Char-grilled marinated paneer cubes sizzled over fresh vegetables, aromatic butter rice, and house sauce.",
-      image: "/menu/unnamed (1).webp",
-      badge: "Chef Special"
-    },
-    {
-      name: "6 Rainbow Shooters",
-      nameGu: "૬ રેઇનબો શૂટર",
-      price: 210,
-      category: "Mocktails & Floats",
-      description: "Six vibrant, handcrafted layered fruit mocktails served in chilled shooter glasses.",
-      image: "/menu/unnamed.webp",
-      badge: "House Signature"
-    },
-    {
-      name: "Tawa Ka Chawal",
-      nameGu: "તવા કા ચાવલ",
-      price: 340,
-      category: "Basmati Ka Khazana",
-      description: "Spiced aromatic basmati rice tossed on a live tawa with garden vegetables, served with chilled Boondi Raita.",
-      image: "/menu/unnamed (1).webp",
-      badge: "Must Try"
-    },
-    {
-      name: "B&B Special Noodles",
-      nameGu: "બી એન્ડ બી સ્પેશીયલ નુડલ્સ",
-      price: 305,
-      category: "Chinese & Tandoor",
-      description: "Signature wok-tossed noodles with exotic bell peppers, crunchy greens, and house seasoning.",
-      image: "/menu/unnamed (3).webp",
-      badge: "Popular"
-    },
-    {
-      name: "Jafrani Kofta",
-      nameGu: "જાફરાની કોફતા",
-      price: 365,
-      category: "Subzi Mandi Se",
-      description: "Delicate paneer and vegetable dumplings simmered in a saffron-infused royal gravy.",
-      image: "/menu/unnamed (5).webp",
-      badge: "Signature Gravy"
-    },
-    {
-      name: "Baked Macaroni & Pineapple",
-      nameGu: "બેક્ડ મેકરોની એન્ડ પાઇનેપલ",
-      price: 485,
-      category: "International Specialities",
-      description: "Tender macaroni with sweet pineapple chunks baked to golden perfection with rich mozzarella crust.",
-      image: "/menu/unnamed (6).webp",
-      badge: "Continental"
-    }
-  ];
+export function MenuSection() {
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
+  const activeCategory = MENU_CATEGORIES[activeCategoryIndex];
 
   return (
-    <section id="menu" className="py-16 sm:py-24 md:py-32 bg-brand-cream relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="The Culinary Deck"
-          title="Authentic Cruise Menu & Signature Bites"
-          description="Explore our complete 10-page cruise-boat shaped menu cards with 5-second automatic sliding, signature chef highlights, and a searchable dish directory."
-          className="mb-8 sm:mb-10"
-        />
-
-        {/* Unified Tab Switcher - Mobile-First Scrollable/Pill layout */}
-        <div className="flex items-center justify-center mb-8 sm:mb-12">
-          <div className="flex items-center gap-1.5 p-1.5 rounded-2xl sm:rounded-full bg-brand-sand/70 border border-brand-border shadow-sm max-w-full overflow-x-auto scrollbar-none">
-            <button
-              onClick={() => setActiveTab('carousel')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${
-                activeTab === 'carousel'
-                  ? 'bg-brand-ink text-white shadow-md'
-                  : 'text-brand-muted hover:text-brand-ink'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange" />
-              <span>Cruise Cards Carousel</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('signatures')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${
-                activeTab === 'signatures'
-                  ? 'bg-brand-ink text-white shadow-md'
-                  : 'text-brand-muted hover:text-brand-ink'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange" />
-              <span>Signature Bites</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('directory')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-sans font-semibold uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${
-                activeTab === 'directory'
-                  ? 'bg-brand-ink text-white shadow-md'
-                  : 'text-brand-muted hover:text-brand-ink'
-              }`}
-            >
-              <LayoutGrid className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange" />
-              <span>Searchable Directory</span>
-            </button>
+    <section id="menu" className="w-full bg-[#FAF4F3] text-[#101820] py-28 px-4 md:px-8 relative overflow-hidden select-none">
+      
+      <div className="max-w-7xl mx-auto space-y-12 relative z-10">
+        
+        {/* Editorial Section Header (Cocova Style: "Cooked with love, served on deck.") */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-xs font-mono text-[#F0822A] tracking-widest uppercase">
+            <Utensils className="w-4 h-4" />
+            <span>THE CULINARY DECK</span>
           </div>
+          <h2 className="font-serif text-4xl sm:text-6xl font-light text-[#101820]">
+            Cooked with love, <br />
+            <span className="italic text-[#F0822A]">served on deck.</span>
+          </h2>
+          <p className="text-sm md:text-base text-[#101820]/75 font-sans font-light max-w-xl">
+            Take the long way through our handcrafted offerings. Pure Veg Unlimited Feast @ ₹350/-, authentic sizzlers, mocktails, and royal gravies.
+          </p>
         </div>
 
-        {/* Tab 1: 5-Second Cruise Menu Carousel */}
-        {activeTab === 'carousel' && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <MenuSlider />
-          </motion.div>
-        )}
+        {/* Category Pills (Cocova Menu Pill Bar Style) */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none">
+          {MENU_CATEGORIES.map((cat, idx) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategoryIndex(idx)}
+              className={`px-5 py-3 rounded-full text-xs font-sans font-semibold tracking-wider transition-all whitespace-nowrap flex items-center gap-2 shadow-sm ${
+                idx === activeCategoryIndex
+                  ? 'bg-[#101820] text-white shadow-md'
+                  : 'bg-white text-[#101820]/70 hover:text-[#101820] border border-[#101820]/10'
+              }`}
+            >
+              <span>{cat.name}</span>
+              <span className="text-[10px] opacity-60 font-mono">({cat.cardCode})</span>
+            </button>
+          ))}
+        </div>
 
-        {/* Tab 2: Signature Bites Showcase */}
-        {activeTab === 'signatures' && (
+        {/* Active Category Cards Stage (Cocova Editorial Menu Card Style) */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            key={activeCategory.id}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="space-y-10 sm:space-y-12"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {signatureItems.map((item, index) => (
+            {/* Category Header Bar */}
+            <div className="flex items-center justify-between border-b border-[#101820]/10 pb-4">
+              <span className="text-xs font-mono uppercase text-[#F0822A] tracking-widest font-semibold">
+                0{activeCategoryIndex + 1} &#8226; {activeCategory.name.toUpperCase()} &#8226; {activeCategory.cardCode}
+              </span>
+              <span className="text-sm font-serif italic text-[#101820]/60">
+                {activeCategory.subtitle}
+              </span>
+            </div>
+
+            {/* Menu Dish Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {activeCategory.dishes.map((dish, i) => (
                 <div
-                  key={item.name}
-                  className="bg-white rounded-2xl overflow-hidden border border-brand-border/70 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+                  key={dish.name}
+                  className="bg-white rounded-3xl p-6 md:p-8 border border-[#101820]/10 shadow-lg flex flex-col md:flex-row gap-6 items-center justify-between relative overflow-hidden group hover:border-[#F0822A]/40 transition-all duration-300"
                 >
-                  <div className="relative h-44 sm:h-48 bg-brand-sand/40 overflow-hidden flex items-center justify-center p-3">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 ease-out"
-                    />
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-brand-ink/80 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-sans font-medium uppercase tracking-wider">
-                      {item.badge}
+                  {/* Left Details */}
+                  <div className="space-y-3 flex-1">
+                    <span className="inline-block px-3 py-1 rounded-full bg-[#101820] text-white text-[10px] font-mono font-bold tracking-wider uppercase">
+                      {dish.badge}
                     </span>
-                    <span className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-brand-orange text-white text-xs font-sans font-bold shadow-sm">
-                      ₹{item.price}/-
-                    </span>
+                    <h3 className="font-serif text-2xl font-medium text-[#101820]">
+                      {dish.name}
+                    </h3>
+                    <p className="text-xs text-[#101820]/75 font-sans font-light leading-relaxed">
+                      {dish.description}
+                    </p>
+                    <div className="pt-2 text-xl font-bold font-mono text-[#F0822A]">
+                      {dish.price}
+                    </div>
                   </div>
 
-                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <span className="text-[10px] sm:text-[11px] font-sans font-semibold uppercase tracking-wider text-brand-wave-blue block mb-1">
-                        {item.category}
-                      </span>
-                      <h3 className="font-serif text-xl sm:text-2xl text-brand-ink font-medium leading-tight">
-                        {item.name}
-                      </h3>
-                      <p className="font-sans text-xs text-brand-orange font-medium mt-0.5 mb-2.5">
-                        {item.nameGu}
-                      </p>
-                      <p className="font-sans text-xs sm:text-sm text-brand-muted leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-
-                    <div className="mt-5 pt-4 border-t border-brand-border/40 flex items-center justify-between text-xs font-sans text-brand-muted">
-                      <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
-                        <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" />
-                        100% Pure Veg
-                      </span>
-                      <button
-                        onClick={() => setActiveTab('carousel')}
-                        className="text-brand-orange hover:underline font-semibold"
-                      >
-                        View in Cruise Card →
-                      </button>
-                    </div>
+                  {/* Right Floating Dish Cutout Image */}
+                  <div className="w-36 h-36 md:w-44 md:h-44 rounded-full bg-[#FAF4F3] border border-[#101820]/10 p-2 shadow-md shrink-0 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      className="w-full h-full object-cover rounded-full"
+                      onError={(e) => {
+                        e.currentTarget.src = '/cruise-sketch.jpg';
+                      }}
+                    />
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Daily Unlimited Lunch Callout inside Menu */}
-            <div className="bg-gradient-to-r from-brand-ink via-brand-ink-soft to-brand-ink text-white rounded-3xl p-6 sm:p-10 shadow-xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3.5 rounded-2xl bg-brand-orange text-white shrink-0 mt-1">
-                  <UtensilsCrossed className="w-6 h-6" />
-                </div>
-                <div>
-                  <span className="text-xs uppercase font-sans tracking-widest text-brand-orange font-semibold block mb-1">
-                    Daily Lunchtime Special
-                  </span>
-                  <h3 className="font-serif text-2xl sm:text-4xl text-white font-normal">
-                    Unlimited Lunch Feast at Just ₹350/-
-                  </h3>
-                  <p className="text-xs sm:text-sm font-sans text-brand-cream/70 mt-1 max-w-xl">
-                    More food, more joy, and unmatched pure vegetarian variety. Available daily between 11:00 AM and 3:00 PM at Boat & Bites Surat.
-                  </p>
-                </div>
-              </div>
-
-              <a
-                href="tel:+919974615111"
-                className="w-full sm:w-auto shrink-0 px-8 py-3.5 rounded-full bg-brand-orange hover:bg-brand-orange-dark text-white font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all duration-200 shadow-md text-center"
-              >
-                Reserve For Lunch
-              </a>
-            </div>
           </motion.div>
-        )}
+        </AnimatePresence>
 
-        {/* Tab 3: Searchable Item Directory */}
-        {activeTab === 'directory' && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+        {/* Bottom Reservation Callout */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between bg-[#101820] text-[#FAF4F3] p-8 rounded-3xl shadow-xl gap-6">
+          <div>
+            <h3 className="font-serif text-2xl font-light">
+              Ready to dine aboard Surat's finest cruise deck?
+            </h3>
+            <p className="text-xs font-mono text-[#F0822A] uppercase tracking-wider mt-1">
+              Unlimited Pure Veg Feast @ ₹350/- • Lunch &amp; Dinner Daily
+            </p>
+          </div>
+          <a
+            href="tel:+919974615111"
+            className="inline-flex items-center gap-3 bg-[#F0822A] hover:bg-[#d9711c] text-white px-7 py-4 rounded-full text-sm font-mono font-semibold uppercase tracking-wider transition-all transform hover:scale-105 shadow-md shadow-[#F0822A]/30 shrink-0"
           >
-            <DigitalMenuGrid />
-          </motion.div>
-        )}
+            <Phone className="w-4 h-4" />
+            <span>RESERVE TABLE</span>
+          </a>
+        </div>
+
       </div>
     </section>
   );
-};
+}
+
+export default MenuSection;

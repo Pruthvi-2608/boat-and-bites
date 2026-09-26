@@ -1,167 +1,110 @@
 import React from 'react';
-import { Phone, MapPin, Clock, Instagram, ExternalLink, Heart } from 'lucide-react';
-import { restaurantData } from '../../data/restaurant';
-import { AnimatedWave } from '../common/AnimatedWave';
+import { Anchor, Phone, MapPin, Clock, Instagram, Heart } from 'lucide-react';
+import { BoatLogo } from '../common/BoatLogo';
 
-export const Footer: React.FC = () => {
+export function Footer() {
   return (
-    <footer className="relative bg-brand-ink text-brand-cream/80 pt-16 md:pt-20 pb-10 overflow-hidden">
-      {/* Subtle background decoration */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-orange/40 to-transparent" />
+    <footer className="w-full bg-[#101820] text-[#FAF4F3] pt-20 pb-12 px-4 md:px-8 border-t border-[#FAF4F3]/10 relative overflow-hidden">
+      {/* Background Watermark Emblem */}
+      <div className="absolute -bottom-16 -right-16 w-96 h-96 opacity-5 pointer-events-none flex items-center justify-center">
+        <Anchor className="w-full h-full text-white" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-white/10">
-          {/* Col 1: Brand Info */}
-          <div className="lg:col-span-5 flex flex-col items-start">
-            <div className="flex items-center gap-3.5 mb-5">
-              <div className="w-14 h-14 rounded-full overflow-hidden bg-white p-1.5 shadow-md">
-                <img
-                  src="/logo.png"
-                  alt="Boat & Bites Logo"
-                  className="w-full h-full object-contain rounded-full"
-                />
-              </div>
-              <div>
-                <span className="font-serif text-2xl font-bold tracking-tight text-white block">
-                  BOAT & BITES
-                </span>
-                <span className="text-[10px] uppercase font-sans tracking-[0.2em] text-brand-orange font-semibold">
-                  {restaurantData.tagline}
-                </span>
-              </div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-[#FAF4F3]/10 relative z-10">
+        
+        {/* Brand Overview */}
+        <div className="md:col-span-4 space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full border border-[#F0822A]/40 bg-[#FAF4F3] flex items-center justify-center p-1">
+              <img
+                src="/logo.png"
+                alt="Boat & Bites"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
-
-            <p className="font-sans text-sm text-brand-cream/70 leading-relaxed mb-6 max-w-md">
-              Surat's premier cruise and boat-themed pure vegetarian restaurant. Dedicated to authentic multicuisine flavors, memorable family gatherings, and grand celebrations at Anthem Circle.
-            </p>
-
-            <div className="flex flex-wrap gap-2 text-xs font-sans">
-              <span className="px-3 py-1 rounded-full bg-white/10 text-white/90 border border-white/10">
-                100% Pure Vegetarian
-              </span>
-              <span className="px-3 py-1 rounded-full bg-brand-orange/20 text-brand-orange border border-brand-orange/30">
-                Gujarat's 1st Cruise Theme
-              </span>
-              <span className="px-3 py-1 rounded-full bg-brand-wave-blue/30 text-indigo-300 border border-brand-wave-blue/40">
-                Banquet & Lawn Venue
-              </span>
+            <div>
+              <h3 className="font-serif text-2xl font-bold text-[#FAF4F3]">BOAT &amp; BITES</h3>
+              <p className="text-xs font-mono text-[#F0822A] tracking-widest uppercase">WATERFRONT DINING &#8226; SURAT</p>
             </div>
           </div>
 
-          {/* Col 2: Navigation Links */}
-          <div className="lg:col-span-3">
-            <h4 className="font-serif text-lg text-white font-medium mb-4 pb-2 border-b border-white/10">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5 font-sans text-sm">
-              <li>
-                <a href="#home" className="hover:text-brand-orange transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#atmosphere" className="hover:text-brand-orange transition-colors">
-                  Atmosphere & Spaces
-                </a>
-              </li>
-              <li>
-                <a href="#menu" className="hover:text-brand-orange transition-colors">
-                  Cruise Menu & Signatures
-                </a>
-              </li>
-              <li>
-                <a href="#banquet" className="hover:text-brand-orange transition-colors">
-                  Banquet & Lawn Spaces
-                </a>
-              </li>
-              <li>
-                <a href="#reels" className="hover:text-brand-orange transition-colors">
-                  From Our Table (Reels)
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" className="hover:text-brand-orange transition-colors">
-                  Guest Moments
-                </a>
-              </li>
-              <li>
-                <a href="#visit" className="hover:text-brand-orange transition-colors">
-                  Hours & Directions
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Contact & Hours */}
-          <div className="lg:col-span-4">
-            <h4 className="font-serif text-lg text-white font-medium mb-4 pb-2 border-b border-white/10">
-              Visit & Contact
-            </h4>
-            <div className="space-y-3.5 font-sans text-sm">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-brand-orange mt-0.5 shrink-0" />
-                <span className="text-brand-cream/80 leading-snug">
-                  {restaurantData.address.full}
-                </span>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-brand-orange mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-white font-medium">Daily Timings</p>
-                  <p className="text-brand-cream/70 text-xs">
-                    Lunch: {restaurantData.hours.lunch}
-                  </p>
-                  <p className="text-brand-cream/70 text-xs">
-                    Dinner: {restaurantData.hours.dinner}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-brand-orange mt-0.5 shrink-0" />
-                <div className="space-y-1">
-                  {restaurantData.phones.map((phone) => (
-                    <a
-                      key={phone}
-                      href={`tel:${phone}`}
-                      className="block text-brand-cream hover:text-brand-orange transition-colors font-medium text-xs md:text-sm"
-                    >
-                      {phone}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <a
-                  href={restaurantData.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-xs text-white transition-colors"
-                >
-                  <Instagram className="w-3.5 h-3.5 text-pink-400" />
-                  <span>@{restaurantData.instagram.handle}</span>
-                  <ExternalLink className="w-3 h-3 ml-0.5 opacity-60" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Wave Divider */}
-        <div className="py-6">
-          <AnimatedWave variant="dark" height={20} />
-        </div>
-
-        {/* Bottom copyright */}
-        <div className="flex flex-col md:flex-row items-center justify-between text-xs font-sans text-brand-cream/50 gap-4">
-          <p>© {new Date().getFullYear()} Boat & Bites Restaurant. All verified rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Crafted for <span className="text-white font-medium">Boat & Bites, Surat</span> with authentic restaurant media
+          <p className="text-sm text-[#FAF4F3]/75 font-sans leading-relaxed font-light">
+            Surat's iconic cruise restaurant offering an authentic Unlimited Pure Veg Dining experience on the water at Anthem Circle.
           </p>
+
+          <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#FAF4F3]/70">
+            <span className="px-3 py-1 rounded-full border border-[#FAF4F3]/20 bg-[#FAF4F3]/5">UNLIMITED FEAST: ₹350/-</span>
+            <span className="px-3 py-1 rounded-full border border-[#FAF4F3]/20 bg-[#FAF4F3]/5">100% PURE VEG</span>
+          </div>
+        </div>
+
+        {/* Quick Navigation */}
+        <div className="md:col-span-3 space-y-4">
+          <h4 className="font-serif text-lg text-[#F0822A] font-medium">Quick Voyage</h4>
+          <ul className="space-y-2.5 text-sm font-sans text-[#FAF4F3]/80">
+            <li><a href="#voyage" className="hover:text-[#F0822A] transition-colors">Floating Memory Deck</a></li>
+            <li><a href="#atmosphere" className="hover:text-[#F0822A] transition-colors">Cruise Atmosphere</a></li>
+            <li><a href="#menu" className="hover:text-[#F0822A] transition-colors">Unlimited Feast Menu</a></li>
+            <li><a href="#banquets" className="hover:text-[#F0822A] transition-colors">Banquets (300-1000+ Guests)</a></li>
+            <li><a href="#visit" className="hover:text-[#F0822A] transition-colors">Location &amp; Timings</a></li>
+          </ul>
+        </div>
+
+        {/* Contact & Location Details */}
+        <div className="md:col-span-5 space-y-5">
+          <h4 className="font-serif text-lg text-[#F0822A] font-medium">Deck Information</h4>
+
+          <div className="space-y-3 text-sm text-[#FAF4F3]/80 font-sans">
+            <div className="flex items-start gap-3">
+              <MapPin className="w-5 h-5 text-[#F0822A] shrink-0 mt-0.5" />
+              <span>Anthem Circle, VIP Road, Vesasu, Surat, Gujarat 395007</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-[#F0822A] shrink-0" />
+              <div className="flex flex-wrap gap-4 font-mono">
+                <a href="tel:+919974615111" className="hover:text-[#F0822A] transition-colors">+91 99746 15111</a>
+                <a href="tel:+919925892727" className="hover:text-[#F0822A] transition-colors">+91 99258 92727</a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-[#F0822A] shrink-0" />
+              <span className="font-mono text-xs">Lunch: 11:00 AM - 3:00 PM | Dinner: 6:30 PM - 11:00 PM</span>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href="https://instagram.com/boatandbites"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-[#FAF4F3]/20 hover:border-[#F0822A] px-4 py-2 rounded-full text-xs font-mono text-[#FAF4F3] hover:text-[#F0822A] transition-all bg-[#FAF4F3]/5"
+              >
+                <Instagram className="w-4 h-4 text-[#F0822A]" />
+                <span>@boatandbites on Instagram</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Copyright Bar */}
+      <div className="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row items-center justify-between text-xs font-mono text-[#FAF4F3]/60 gap-4 relative z-10">
+        <div className="flex items-center gap-2">
+          <span>&copy; {new Date().getFullYear()} BOAT &amp; BITES SURAT. ALL RIGHTS RESERVED.</span>
+        </div>
+        <div className="flex items-center gap-1 text-[#FAF4F3]/50">
+          <span>Crafted with</span>
+          <Heart className="w-3.5 h-3.5 text-[#F0822A] fill-[#F0822A]" />
+          <span>for Surat Cruise Enthusiasts</span>
         </div>
       </div>
     </footer>
   );
-};
+}
+
+export default Footer;

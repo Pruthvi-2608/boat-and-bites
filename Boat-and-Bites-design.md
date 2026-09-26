@@ -1,150 +1,286 @@
-# Boat & Bites --- Website Design & Build Specification
+# BOAT & BITES — IMMERSIVE RESTAURANT WEBSITE DESIGN SYSTEM
 
-## Project Identity
+> **Project:** Boat & Bites  
+> **Purpose:** Premium restaurant website / brand experience  
+> **Design direction:** Cinematic, editorial, interactive, warm, playful, sophisticated  
+> **Primary reference:** The interaction quality and storytelling approach of The Cocova website — NOT its branding, colors, typography, copy, illustrations, layout, or assets.  
+> **Brand identity:** Boat & Bites logo, supplied restaurant media, Instagram scraper dataset, and supplied menu images.  
+> **Implementation target:** React + Vite + Tailwind CSS + Framer Motion + Lucide React.
 
-Build a premium restaurant website for **Boat & Bites, Surat**.
+---
 
-This design document follows the same overall approach used for the
-**Yaari Social Cafe** project:
+# 1. CORE CREATIVE DIRECTION
 
--   logo-derived visual identity
--   cozy + premium atmosphere
--   editorial restaurant layout
--   authentic supplied media as the source of truth
--   React + Tailwind architecture
--   Framer Motion animations
--   cinematic hero
--   Instagram/reel media integration
--   highly designed menu
--   responsive mobile experience
--   subtle motion throughout the site
--   handcrafted details instead of a generic AI template
+Boat & Bites should NOT feel like a normal restaurant website.
 
-The final website should feel like a real restaurant brand website, not
-a technology showcase.
+It should feel like the visitor has entered a small visual journey built around the Boat & Bites identity.
 
-------------------------------------------------------------------------
+The central creative idea is:
 
-# 1. CORE DESIGN DIRECTION
+> **THE BOAT IS THE GUIDE.**
 
-The emotional direction is:
+The website should repeatedly use the visual language of:
 
-``` text
-COZY
-+
-PREMIUM
-+
-AESTHETIC
-+
-SOCIAL
-+
-CINEMATIC
-+
-ALIVE
+- a boat
+- flowing water
+- waves
+- a voyage
+- movement
+- arriving somewhere
+- discovering food
+- gathering around a table
+- memories created at the restaurant
+
+The Boat & Bites logo should not simply appear in the navbar and footer.
+
+It should become a **design character / visual motif** throughout the experience.
+
+The website should feel like:
+
+**arrival → voyage → discovery → food → menu → atmosphere → memories → visit**
+
+The visitor should always feel that the page is moving somewhere.
+
+Avoid a conventional:
+
+```text
+Hero
+About
+Services
+Gallery
+Contact
+Footer
 ```
 
-The website should feel warm and inviting while still looking
-professionally art-directed.
+template.
 
-Use:
+Instead build a narrative experience.
 
--   real restaurant photography
--   real Instagram videos/reels
--   supplied menu images
--   supplied logo
--   real restaurant information extracted from the dataset
+---
 
-Avoid:
+# 2. REFERENCE PHILOSOPHY
 
--   generic stock restaurant images
--   generic AI restaurant copy
--   excessive glassmorphism
--   neon gradients
--   SaaS-style cards
--   excessive rounded containers
--   random decorative blobs
--   excessive animation
--   fake reviews or fake information
+The Cocova reference demonstrates several useful principles:
 
-The design principle is:
+- strong brand symbol used as a recurring visual language
+- storytelling instead of generic section labels
+- large editorial typography
+- immersive media
+- horizontal/scroll-driven discovery
+- interactive product presentation
+- animated line work
+- strong transitions between sections
+- menu treated as an experience
+- small details that reward scrolling
+- a strong sense of place
+- a website that feels designed rather than assembled
 
-> **Calm typography + beautiful media + subtle movement.**
+Boat & Bites should use these principles but create a completely original visual system.
 
-------------------------------------------------------------------------
+## DO NOT COPY
 
-# 2. SOURCE OF TRUTH
+Do NOT reproduce:
 
-The following assets are authoritative:
+- Cocova's tree
+- Cocova's typography
+- Cocova's exact layout
+- Cocova's text
+- Cocova's colors
+- Cocova's illustrations
+- Cocova's animations one-to-one
+- Cocova's page structure one-to-one
+- Cocova's assets
+- Cocova's visual identity
 
-1.  Supplied Boat & Bites logo
-2.  Instagram scrape/dataset supplied with the project
-3.  Menu images already placed inside the project's `menu` folder
-4.  Any additional restaurant assets supplied by the user
+Instead:
 
-Before implementing the UI, inspect the entire project recursively.
+> **Take the idea of an immersive branded journey and reinterpret it around a boat and restaurant.**
+
+---
+
+# 3. NON-NEGOTIABLE CONTENT RULE
+
+The website must use only real information supplied by the project.
+
+The following are mandatory sources of truth:
+
+1. supplied Boat & Bites logo
+2. Instagram scraper dataset
+3. all relevant supplied restaurant photographs
+4. all supplied videos / Reels
+5. supplied captions and post information
+6. supplied menu images inside the `menu` folder
+7. any other files already present in the project
+
+DO NOT invent:
+
+- address
+- phone number
+- opening hours
+- prices
+- dishes
+- ingredients
+- reviews
+- awards
+- ratings
+- claims
+- restaurant history
+- founder information
+- chef information
+- facilities
+- menu categories
+- social statistics
+- testimonials
+
+If a piece of information is not present in the supplied project data:
+
+**DO NOT CREATE IT.**
+
+Simply omit it.
+
+---
+
+# 4. MANDATORY PROJECT INSPECTION BEFORE CODING
+
+Before writing components, recursively inspect the entire project.
+
+Do not only inspect the root directory.
+
+Search:
+
+```text
+/**
+```
+
+and inspect relevant:
+
+- JSON
+- CSV
+- TXT
+- MD
+- images
+- videos
+- Instagram scraper exports
+- menu folder
+- public assets
+- src assets
+- logo files
+- metadata files
+
+The Instagram scraper dataset is a **mandatory content source**.
+
+Extract everything useful from it.
 
 Look for:
 
-``` text
-*.json
-*.jsonl
-*.csv
-*.xlsx
-*.txt
-*.html
-*.jpg
-*.jpeg
-*.png
-*.webp
-*.mp4
-*.mov
-*.webm
+- post URLs
+- Reel URLs
+- image URLs
+- downloaded images
+- downloaded videos
+- captions
+- dates
+- usernames
+- restaurant details
+- contact information
+- location information
+- menu information
+- dish names
+- prices
+- atmosphere content
+- food photography
+- interior photography
+- exterior photography
+- event content
+- people/social moments
+- recurring brand phrases
+- useful descriptions
 
-menu/
-menus/
-images/
-media/
-videos/
-reels/
-instagram/
-assets/
-public/
+Create an internal normalized content manifest before implementation.
+
+Example:
+
+```ts
+type BoatBitesMedia = {
+  type: "image" | "video";
+  src: string;
+  source: "instagram" | "local";
+  postUrl?: string;
+  caption?: string;
+  date?: string;
+  category:
+    | "food"
+    | "interior"
+    | "exterior"
+    | "people"
+    | "reel"
+    | "menu"
+    | "brand"
+    | "other";
+};
 ```
 
-Do not assume a fixed scrape schema.
+Do not expose raw scraper data directly to users.
 
-------------------------------------------------------------------------
+---
 
-# 3. BRAND / LOGO
+# 5. LOGO AS THE DESIGN ENGINE
 
-The supplied Boat & Bites logo is the main visual reference.
+Use the supplied Boat & Bites logo as the primary visual reference.
 
 The logo contains:
 
--   dark circular utensil emblem
--   orange boat/food form
--   flowing blue/purple wave lines
--   clean white space
--   strong horizontal movement
+- dark circular emblem
+- orange boat / food form
+- flowing blue/purple wave lines
+- clean negative space
+- strong horizontal movement
 
-The website visual language should inherit these characteristics.
+The entire website should inherit these characteristics.
 
-Do NOT redesign the logo.
+The logo must remain unchanged.
 
-Use the original logo asset.
+Do not redraw or redesign it.
 
-The wave element can also inspire subtle decorative SVG/CSS lines
-throughout the website.
+Do not distort its proportions.
 
-------------------------------------------------------------------------
+Do not replace its colors.
 
-# 4. COLOR SYSTEM
+Do not generate a new logo.
 
-Create global design tokens.
+The boat and wave elements may inspire:
 
-Suggested palette:
+- SVG line animations
+- section dividers
+- scroll indicators
+- transition graphics
+- loading animations
+- decorative borders
+- background paths
+- hover states
+- menu navigation
+- cursor trails
+- progress indicators
 
-``` css
+---
+
+# 6. COLOR SYSTEM — DO NOT CHANGE
+
+## CRITICAL
+
+The previous Boat & Bites color palette is approved.
+
+**KEEP THIS COLOR SYSTEM EXACTLY.**
+
+Do not replace it with Cocova colors.
+
+Do not introduce another primary palette.
+
+Do not redesign the color identity.
+
+Use these global tokens:
+
+```css
 --ink: #171717;
 --deep-ink: #101820;
 
@@ -164,1601 +300,2644 @@ Suggested palette:
 --border: rgba(23, 23, 23, 0.12);
 ```
 
-Sample the actual logo if needed and refine these values.
+## Color hierarchy
 
-### Usage
+### Primary backgrounds
 
-Cream / warm white: - page background - menu - editorial sections
+Use:
 
-Deep ink: - navbar - footer - strong contrast sections
+```text
+cream
+warm-white
+deep-ink
+```
 
-Orange: - CTA - active menu state - small accents - links - selected
-details
+### Primary brand accent
 
-Blue / purple: - wave accents - subtle gradients - decorative motion
+Use:
 
-Do not make every section orange or blue.
+```text
+orange
+```
 
-The palette should remain sophisticated.
+### Secondary visual movement
 
-------------------------------------------------------------------------
+Use:
 
-# 5. TYPOGRAPHY
+```text
+wave-blue
+wave-purple
+```
 
-Use the same type of editorial contrast that worked for Yaari.
+### Neutral structure
 
-Recommended:
+Use:
 
-### Display
+```text
+sand
+muted
+border
+```
 
-``` text
+---
+
+# 7. COLOR USAGE RULES
+
+Do NOT make the website colorful everywhere.
+
+The website should feel premium.
+
+Use orange strategically:
+
+- CTA
+- active states
+- small labels
+- boat accents
+- menu controls
+- progress indicators
+- important interaction states
+
+Use blue/purple strategically:
+
+- animated waves
+- line drawings
+- subtle gradients
+- decorative transitions
+- interactive visual states
+
+Use deep ink for:
+
+- cinematic sections
+- navigation
+- footer
+- dramatic transitions
+- text contrast
+
+Use cream/warm-white for:
+
+- editorial content
+- menu
+- food storytelling
+- gallery
+- large whitespace areas
+
+The colors should breathe.
+
+---
+
+# 8. TYPOGRAPHY
+
+Maintain the premium editorial contrast from the previous design.
+
+## Display font
+
+Use:
+
+```text
 Cormorant Garamond
 ```
 
-Alternative:
+Use it for:
 
-``` text
-Playfair Display
-DM Serif Display
-```
+- major headings
+- hero statements
+- section titles
+- dramatic single-word statements
+- menu category titles
 
-### UI / Body
+## Body / UI
 
-``` text
+Use:
+
+```text
 Manrope
 ```
 
-Alternative:
+Use it for:
 
-``` text
-Inter
-Plus Jakarta Sans
+- navigation
+- descriptions
+- buttons
+- metadata
+- labels
+- captions
+- menu controls
+
+## Typography philosophy
+
+Large display text.
+
+Short sentences.
+
+Generous whitespace.
+
+Small uppercase metadata.
+
+Avoid huge paragraphs.
+
+Use editorial hierarchy.
+
+Example:
+
+```text
+01 / THE VOYAGE
+
+Where the table
+meets the tide.
 ```
 
-Preferred:
+---
 
-``` text
-Headings → Cormorant Garamond
-Body/UI → Manrope
+# 9. THE WEBSITE EXPERIENCE
+
+The page should feel like one continuous journey.
+
+Recommended narrative:
+
+```text
+SPLASH
+↓
+ARRIVAL / HERO
+↓
+THE BOAT INTRODUCTION
+↓
+THE VOYAGE
+↓
+FOOD / CRAFT
+↓
+SIGNATURE MOMENTS
+↓
+MENU
+↓
+MEMORIES / INSTAGRAM
+↓
+THE PLACE
+↓
+VISIT
+↓
+FOOTER
 ```
 
-Large serif typography should create the premium restaurant/editorial
-feeling.
+Every section should visually transition into the next.
 
-Avoid overly decorative fonts.
+Avoid abrupt disconnected blocks.
 
-------------------------------------------------------------------------
+---
 
-# 6. TECH STACK
+# 10. SPLASH SCREEN — MAJOR BRAND MOMENT
 
-Use:
+The splash screen must be one of the most memorable parts of the website.
 
-``` text
-React
-Vite
-Tailwind CSS
-Framer Motion
-Lucide React
+It must NOT look like:
+
+```text
+Loading...
 ```
 
-Use only additional libraries when genuinely useful.
+It must NOT look like:
 
-Recommended utilities:
-
--   Intersection Observer
--   responsive image loading
--   video viewport detection
--   lightbox/modal
--   accessible carousel
-
-Do not over-install libraries.
-
-------------------------------------------------------------------------
-
-# 7. HOMEPAGE STRUCTURE
-
-Recommended order:
-
-``` text
-01  Navbar
-02  Cinematic Hero
-03  Brand Introduction
-04  Atmosphere / Experience
-05  Signature Food / Visual Story
-06  Menu
-07  Instagram / Reels
-08  Gallery / Moments
-09  About / Story
-10  Visit / Contact
-11  Footer
+```text
+Logo centered
+spinner
+website loads
 ```
 
-Keep the homepage curated.
+Instead create a short cinematic brand animation.
 
-Do not make every piece of scraped content a separate section.
+## SPLASH CONCEPT
 
-------------------------------------------------------------------------
+### “THE VOYAGE BEGINS”
 
-# 8. NAVBAR
+Use the supplied Boat & Bites logo as the final reference.
+
+Recommended animation:
+
+### 0.0–0.8 sec
+
+Start with a warm cream paper-like background.
+
+Almost empty.
+
+A tiny blue/purple hand-drawn wave line appears near the bottom.
+
+Very subtle paper/grain texture.
+
+### 0.8–1.6 sec
+
+The wave line begins moving horizontally.
+
+A small orange sketch boat appears.
+
+The boat travels across the screen.
+
+The movement is elegant and slightly organic.
+
+### 1.6–2.5 sec
+
+The boat continues forward.
+
+Its movement creates flowing blue and purple wave strokes.
+
+The wave lines begin forming the circular visual structure of the logo.
+
+### 2.5–3.3 sec
+
+The dark emblem begins drawing itself.
+
+The orange boat becomes aligned with the actual supplied logo.
+
+The wave system settles into the correct logo shape.
+
+### 3.3–4.0 sec
+
+The complete original Boat & Bites logo resolves sharply.
+
+Very subtle scale:
+
+```text
+0.96 → 1
+```
+
+Opacity:
+
+```text
+0 → 1
+```
+
+Then the page begins its hero transition.
+
+## IMPORTANT
+
+The final logo must match the supplied logo.
+
+Do not morph it into another logo.
+
+Do not change the logo typography.
+
+Do not add text.
+
+Do not add fake symbols.
+
+Do not add a watermark.
+
+---
+
+# 11. SPLASH TRANSITION INTO WEBSITE
+
+The splash should not simply disappear.
+
+Use the wave itself as the transition.
+
+At the end:
+
+```text
+logo
+↓
+wave expands horizontally
+↓
+wave becomes hero visual mask
+↓
+hero media appears behind it
+↓
+navbar fades in
+```
+
+This creates the feeling that:
+
+> The boat has entered the restaurant world.
+
+This transition is extremely important.
+
+---
+
+# 12. OPTIONAL SPLASH INTERACTION
+
+On desktop:
+
+A subtle cursor-following wave can appear after the splash.
+
+The movement must be very restrained.
+
+On mobile:
+
+Disable heavy cursor effects.
+
+Keep only the wave transition.
+
+---
+
+# 13. NAVIGATION
+
+The navbar should feel minimal.
 
 Desktop:
 
-``` text
-[BOAT & BITES LOGO]
-
-HOME
-MENU
-STORY
-GALLERY
-VISIT
-
-[RESERVE / ORDER / CONTACT]
+```text
+[Boat & Bites Logo]     Menu     Story     Moments     Visit     [View Menu]
 ```
 
-Only show CTA labels supported by actual restaurant functionality.
+Use the actual navigation content appropriate to available sections.
 
-### Behavior
+Do not create links for unavailable information.
 
-At top:
+## Initial state
 
-``` text
-transparent / overlay style
+Navbar can be:
+
+```text
+transparent
 ```
+
+over hero.
 
 After scrolling:
 
-``` text
-warm cream background
+```text
+warm cream
 subtle border
-slight backdrop blur
+backdrop blur
 ```
 
 Animation:
 
-``` text
-logo: opacity 0 → 1
-nav: y -12 → 0
-CTA: scale .96 → 1
+```text
+y: -12 → 0
+opacity: 0 → 1
 ```
 
-Navigation links have a refined animated underline.
+Logo subtly scales.
+
+Navigation underline should animate using a short wave-like line rather than a generic CSS underline.
+
+---
+
+# 14. HERO — “ARRIVAL”
+
+The hero should feel cinematic.
+
+Use the strongest authentic supplied:
+
+- Reel
+- video
+- restaurant image
+- exterior image
+- food/environment video
+
+Prefer real video if available.
+
+Do not use stock footage.
+
+## Hero composition
+
+Large full viewport:
+
+```text
+100svh
+```
+
+Desktop.
 
 Mobile:
 
--   compact logo
--   hamburger menu
--   full-screen or elegant side menu
--   large tap targets
-
-------------------------------------------------------------------------
-
-# 9. HERO SECTION
-
-The hero must immediately establish the Boat & Bites atmosphere.
-
-Use the strongest real supplied:
-
-1.  restaurant video
-2.  food video
-3.  restaurant interior media
-4.  strongest restaurant image
-
-Do not create fake hero imagery if real media is available.
-
-### Composition
-
-``` text
-------------------------------------------------
-NAVBAR
-------------------------------------------------
-
-             REAL VIDEO / IMAGE
-
-             SMALL EYEBROW
-
-             BOAT & BITES
-
-             [EDITORIAL HEADLINE]
-
-             short supporting copy
-
-             [EXPLORE MENU]  [VISIT US]
-
-                 ↓ SCROLL
-
-------------------------------------------------
+```text
+80–92svh
 ```
 
-Do not cover important food or people in the source media.
+depending on the media.
 
-### Hero animation
+Add a subtle dark/cream gradient only if required for readability.
 
-Background:
+Do not over-darken authentic food photography.
 
-``` text
-scale 1.06 → 1
-duration 10–14s
-ease easeOut
-```
+---
 
-Text:
+# 15. HERO STORY
 
-``` text
-opacity 0 → 1
-y 35px → 0
-```
+The hero should introduce the idea of arriving at Boat & Bites.
 
-CTA:
+Possible structure:
 
-``` text
-opacity 0 → 1
-y 15px → 0
-```
+```text
+THE VOYAGE BEGINS
 
-Add a very subtle animated wave line near the bottom inspired by the
-logo.
-
-------------------------------------------------------------------------
-
-# 10. HERO COPY
-
-Do not invent a fake restaurant slogan.
-
-First inspect:
-
--   Instagram bio
--   captions
--   restaurant description
--   supplied dataset
-
-If a real tagline exists, use it.
-
-Otherwise use minimal neutral copy.
-
-Example structure only:
-
-``` text
 BOAT & BITES
 
-Good food.
-Good atmosphere.
-Good moments.
+[short real brand statement if available]
+
+EXPLORE THE MENU →
 ```
 
-Replace this with verified brand language whenever available.
+If no suitable tagline exists in supplied data:
 
-------------------------------------------------------------------------
+Do not invent one.
 
-# 11. BRAND INTRODUCTION
+Use only:
 
-After hero, create a strong editorial introduction.
-
-Layout:
-
-``` text
-LEFT:
-large serif statement
-
-RIGHT:
-short verified description
-+
-small real restaurant image/video
-```
-
-Example visual style:
-
-``` text
-A PLACE FOR
-GOOD BITES
-AND GOOD TIMES.
-```
-
-Use only factual copy.
-
-Add a subtle wave line crossing the section.
-
-------------------------------------------------------------------------
-
-# 12. ATMOSPHERE / EXPERIENCE
-
-Use authentic restaurant media.
-
-Possible content:
-
--   interiors
--   ambience
--   people
--   food preparation
--   events
--   music
--   social moments
--   restaurant details
-
-Only include categories actually supported by the dataset.
-
-Use an asymmetric layout similar to a premium editorial cafe website.
-
-Example:
-
-``` text
-┌──────────────────────────────┬──────────────┐
-│                              │              │
-│        LARGE IMAGE           │ SMALL IMAGE  │
-│                              │              │
-│                              ├──────────────┤
-│                              │ SHORT TEXT   │
-└──────────────────────────────┴──────────────┘
-```
-
-Images should reveal with a mask animation.
-
-------------------------------------------------------------------------
-
-# 13. SIGNATURE FOOD / VISUAL STORY
-
-Create a food-focused section using real restaurant food media.
-
-Do not automatically call dishes "best" or "must try".
-
-If the supplied content identifies signature/special dishes, preserve
-that terminology.
-
-Otherwise use neutral labels such as:
-
-``` text
-FROM THE KITCHEN
-```
-
-or
-
-``` text
-A FEW FAVOURITES
-```
-
-only where appropriate.
-
-Each visual can contain:
-
-``` text
-dish name
-short verified description
-price if verified
-```
-
-------------------------------------------------------------------------
-
-# 14. MENU --- PRIMARY FEATURE
-
-The menu should be one of the most visually polished sections.
-
-The user has already placed the **menu images inside the project's menu
-folder**.
-
-These images must be used.
-
-## Important Requirement
-
-### MENU IMAGE SLIDESHOW
-
-The menu images must automatically slide/change every **5 seconds**.
-
-Behavior:
-
-``` text
-Menu image 1
-↓ 5 seconds
-Menu image 2
-↓ 5 seconds
-Menu image 3
-↓ 5 seconds
-...
-↓
-loop back to Menu image 1
-```
-
-Use an accessible carousel/slider.
-
-### Transition
-
-Preferred:
-
-``` text
-opacity fade
-+
-slight horizontal movement
-```
-
-Do not use an aggressive spinning or bouncing transition.
-
-Example:
-
-``` text
-current image:
-opacity 1
-x 0
-
-next image:
-opacity 0
-x 30px
-
-duration:
-700–900ms
-```
-
-The slide remains visible for approximately **5 seconds** before
-changing.
-
-### Controls
-
-Include:
-
--   previous arrow
--   next arrow
--   pagination dots
--   autoplay
--   pause on hover for desktop
--   pause when not visible
--   swipe on mobile
-
-Autoplay should still be configured around the required **5-second
-interval**.
-
-### Important
-
-Do not crop menu text.
-
-The menu image must remain readable.
-
-Use:
-
-``` text
-object-contain
-```
-
-for menu pages rather than `object-cover`.
-
-------------------------------------------------------------------------
-
-# 15. MENU IMAGE DISCOVERY
-
-Antigravity must inspect:
-
-``` text
-menu/
-```
-
-and any equivalent folder recursively.
-
-Find:
-
-``` text
-*.png
-*.jpg
-*.jpeg
-*.webp
-```
-
-Sort menu images naturally.
-
-Example:
-
-``` text
-menu-1
-menu-2
-menu-3
-```
-
-or
-
-``` text
-1
-2
-3
-```
-
-If filenames have no useful ordering, use filesystem order only after
-inspecting all files.
-
-Do not accidentally include unrelated images.
-
-------------------------------------------------------------------------
-
-# 16. MENU SLIDER LAYOUT
-
-Desktop:
-
-``` text
-------------------------------------------------
-                 OUR MENU
-
-       Explore the Boat & Bites menu.
-
-        [ CATEGORY / DESCRIPTION ]
-
-     ┌───────────────────────────────┐
-     │                               │
-     │                               │
-     │          MENU IMAGE           │
-     │         object-contain        │
-     │                               │
-     │                               │
-     └───────────────────────────────┘
-
-        ●  ○  ○  ○
-
-        ←                         →
-------------------------------------------------
-```
-
-Place the menu image inside a premium frame.
-
-Use:
-
--   warm cream background
--   thin border
--   subtle shadow
--   elegant spacing
-
-Do not make it look like a generic image carousel.
-
-------------------------------------------------------------------------
-
-# 17. MENU IMAGE LIGHTBOX
-
-Clicking the menu image should open a fullscreen viewer.
-
-Features:
-
--   dark charcoal overlay
--   large image
--   close button
--   next/previous controls
--   keyboard support
--   mobile swipe
--   zoom if supported
--   preserve image aspect ratio
-
-Animation:
-
-``` text
-modal opacity 0 → 1
-image scale .94 → 1
-duration 400–500ms
-```
-
-------------------------------------------------------------------------
-
-# 18. MENU DATA
-
-If menu images are the only source of menu information:
-
-Do NOT invent a typed digital menu.
-
-Keep the menu pages as authentic images.
-
-If readable menu text is also present in the dataset, optionally create
-a structured menu below/alongside the slider.
-
-Never fabricate:
-
--   prices
--   dish names
--   ingredients
--   categories
--   availability
--   dietary claims
-
-------------------------------------------------------------------------
-
-# 19. INSTAGRAM DATA EXTRACTION
-
-The supplied Instagram scrape is a major content source.
-
-Antigravity must inspect it before implementing final content.
-
-Search recursively for:
-
-``` text
-posts
-reels
-captions
-media URLs
-video URLs
-image URLs
-timestamps
-permalinks
-shortcodes
-profile information
-restaurant information
-contact information
-```
-
-Possible fields:
-
-``` text
-display_url
-thumbnail_url
-video_url
-videoUrl
-media_url
-mediaUrl
-src
-type
-media_type
-is_video
-caption
-timestamp
-date
-shortcode
-post_url
-permalink
-```
-
-Do not assume the schema.
-
-------------------------------------------------------------------------
-
-# 20. MEDIA MANIFEST
-
-Normalize extracted media into:
-
-``` text
-src/data/instagramMedia.js
-```
-
-Example:
-
-``` js
-export const instagramMedia = [
-  {
-    id: "ig-001",
-    type: "image",
-    src: "/media/instagram/images/001.webp",
-    thumbnail: "/media/instagram/images/001.webp",
-    caption: "",
-    date: "",
-    permalink: "",
-    section: "gallery"
-  },
-  {
-    id: "ig-002",
-    type: "video",
-    src: "/media/instagram/videos/002.mp4",
-    thumbnail: "/media/instagram/thumbnails/002.webp",
-    caption: "",
-    date: "",
-    permalink: "",
-    section: "reels"
-  }
-];
-```
-
-Normalize all available media into this structure.
-
-------------------------------------------------------------------------
-
-# 21. MEDIA STORAGE
-
-If local media is supplied, organize it cleanly:
-
-``` text
-public/
-└── media/
-    └── instagram/
-        ├── images/
-        ├── videos/
-        └── thumbnails/
-```
-
-Menu:
-
-``` text
-public/
-└── menu/
-    ├── menu-1.*
-    ├── menu-2.*
-    └── ...
-```
-
-Do not duplicate the same media unnecessarily.
-
-------------------------------------------------------------------------
-
-# 22. VIDEO / REELS SECTION
-
-Create a visually rich Instagram/reels section.
-
-Use real videos from the supplied dataset.
-
-Possible heading:
-
-``` text
-FROM OUR TABLE
-```
-
-or a verified brand phrase.
-
-Show 3--6 relevant videos.
-
-Video behavior:
-
-``` text
-muted
-playsInline
-loop
-poster
-```
-
-Use Intersection Observer:
-
-``` text
-visible > 45%
-→ play
-
-visible < 20%
-→ pause
-```
-
-Do not allow many videos to play simultaneously.
-
-------------------------------------------------------------------------
-
-# 23. VIDEO CARD
-
-Each video card should feel editorial.
-
-Possible layout:
-
-``` text
-┌─────────────────────┐
-│                     │
-│       VIDEO         │
-│                     │
-│                     │
-│                     │
-├─────────────────────┤
-│ caption / category  │
-└─────────────────────┘
-```
-
-Hover:
-
-``` text
-image/video scale 1 → 1.03
-```
-
-Keep the interaction subtle.
-
-------------------------------------------------------------------------
-
-# 24. GALLERY / MOMENTS
-
-Create an asymmetric gallery.
-
-Do NOT use a boring equal 3-column grid.
-
-Example:
-
-``` text
-┌──────────────┬────────────────────┐
-│              │                    │
-│    IMAGE     │       IMAGE        │
-│              │                    │
-├───────┬──────┴────────────┬───────┤
-│ IMG   │       VIDEO       │ IMG   │
-├───────┴───────────────────┴───────┤
-│             LARGE IMAGE           │
-└────────────────────────────────────┘
-```
-
-Use real Instagram media.
-
-Click:
-
-``` text
-→ fullscreen media viewer
-```
-
-------------------------------------------------------------------------
-
-# 25. ABOUT / STORY
-
-Create a warm restaurant story section.
-
-Use only verified information from the dataset.
-
-Layout:
-
-``` text
-large image
-+
-story
-+
-small supporting image
-```
-
-The section should feel human rather than corporate.
-
-Avoid generic text such as:
-
-``` text
-We are passionate about delivering unforgettable culinary experiences...
-```
-
-Use actual brand voice/content whenever available.
-
-------------------------------------------------------------------------
-
-# 26. INSTAGRAM CTA
-
-If the Instagram profile URL is available:
-
-``` text
-Follow Boat & Bites
-```
-
-with a real link.
-
-Do not invent the username or URL.
-
-Use selected authentic media around the CTA.
-
-------------------------------------------------------------------------
-
-# 27. VISIT / CONTACT
-
-Use only verified information.
-
-Possible:
-
-``` text
-VISIT BOAT & BITES
-
-Address
-Opening Hours
-Phone
-Instagram
-
-[GET DIRECTIONS]
-[CALL]
-[INSTAGRAM]
-```
-
-Hide fields that are not available.
-
-Never invent:
-
--   address
--   phone
--   hours
--   email
--   reservation links
-
-------------------------------------------------------------------------
-
-# 28. FOOTER
-
-Use a deep ink footer.
-
-Structure:
-
-``` text
+```text
 BOAT & BITES
-
-verified short description
-
-NAVIGATION
-Home
-Menu
-Story
-Gallery
-Visit
-
-CONTACT
-verified information
-
-SOCIAL
-Instagram
 ```
 
-Add a subtle animated wave at the bottom.
+and navigation.
 
-------------------------------------------------------------------------
+---
 
-# 29. MOTION SYSTEM
+# 16. HERO MOTION
 
-The website must not feel static.
+Use subtle cinematic movement:
 
-Every major section should contain some tasteful motion.
-
-Use **Framer Motion**.
-
-## Scroll Reveal
-
-``` text
-opacity: 0 → 1
-y: 30px → 0
-duration: 700–900ms
-```
-
-## Image Reveal
-
-``` text
-clip-path:
-inset(10% 0 0 0)
-→
-inset(0 0 0 0)
-
-scale:
-1.05 → 1
-```
-
-## Image Breathing
-
-``` text
-scale:
-1 → 1.03 → 1
-
-duration:
-12–18s
-```
-
-## Parallax
-
-Keep subtle:
-
-``` text
-translateY:
--4% to +4%
-```
-
-## Wave Animation
-
-Slow movement:
-
-``` text
-translateX
-or
-stroke-dashoffset
-```
-
-Do not animate too many decorative elements simultaneously.
-
-------------------------------------------------------------------------
-
-# 30. MARQUEE
-
-Use one tasteful moving marquee if appropriate.
-
-Example:
-
-``` text
-BOAT & BITES • FOOD • MOMENTS • GOOD TIMES •
-```
-
-Keep it slow.
-
-Do not make the marquee the main visual element.
-
-------------------------------------------------------------------------
-
-# 31. MICRO-INTERACTIONS
-
-Buttons:
-
-``` text
-arrow moves 3–5px
-background transitions smoothly
-```
-
-Navigation:
-
-``` text
-underline expands
-```
-
-Menu:
-
-``` text
-active dot/underline moves
-```
-
-Gallery:
-
-``` text
-image scale 1 → 1.03
-```
-
-Cards:
-
-``` text
-slight translateY
-```
-
-All interactions should feel premium.
+- slow media scale
+- floating wave lines
+- masked image reveal
+- tiny logo movement
+- parallax
+- text reveal
+- moving grain
+- wave path animation
 
 Avoid:
 
-``` text
-bounce
-shake
-spin
-elastic
-random floating
+- aggressive zoom
+- constant bouncing
+- spinning logos
+- flashy particle effects
+- excessive transitions
+
+The motion should feel expensive.
+
+---
+
+# 17. SECTION: “FOLLOW THE BOAT”
+
+This replaces a conventional About section.
+
+Create a large editorial section with a continuous animated route.
+
+A boat-shaped or wave-inspired SVG path travels through the section.
+
+As the visitor scrolls:
+
+```text
+boat → moves along path
 ```
 
-------------------------------------------------------------------------
+The path reveals short pieces of content.
 
-# 32. LOADING EXPERIENCE
+Possible nodes:
 
-Do not use a generic spinner.
+```text
+THE PLACE
+THE FOOD
+THE TABLE
+THE MOMENTS
+```
+
+Only use labels supported by actual content.
+
+---
+
+# 18. THE BOAT JOURNEY VISUAL
+
+Create a custom SVG illustration system.
 
 Use:
 
-``` text
-Boat & Bites logo
+- orange boat
+- blue wave
+- purple wave
+- dark ink line
+- cream background
+
+The boat can travel along:
+
+```text
+M → C → C → C
+```
+
+SVG path.
+
+Use Framer Motion / Motion values to animate the boat position based on scroll progress.
+
+The animation should feel like the website itself is sailing.
+
+---
+
+# 19. SECTION: “THE TABLE”
+
+Show restaurant atmosphere.
+
+Use authentic:
+
+- interior photos
+- people moments
+- seating
+- lighting
+- exterior
+- restaurant details
+
+Do not invent descriptions.
+
+Instead use real captions from the dataset where useful.
+
+Create an editorial collage rather than cards.
+
+Example composition:
+
+```text
+small image        large image
+       text
+large image        small image
+```
+
+Use asymmetric positioning.
+
+---
+
+# 20. INTERACTIVE MEMORY / MOMENTS SECTION
+
+Inspired by the idea of a memory journey, create:
+
+# “MOMENTS FROM THE VOYAGE”
+
+This should use real Instagram content.
+
+Do not call it “Memories” unless that word exists in the supplied brand content.
+
+## Interaction
+
+Desktop:
+
+Horizontal drag / scroll.
+
+Mobile:
+
+Swipe horizontally.
+
+Each moment is a large visual card.
+
+Each card may contain:
+
+```text
+01
+IMAGE / VIDEO
+
+caption
+date
+```
+
+Only display metadata that exists.
+
+---
+
+# 21. MOMENT CARD BEHAVIOR
+
+Cards should not look like Instagram embeds.
+
+They should feel like editorial photographs.
+
+Use:
+
+- variable widths
+- different aspect ratios
+- overlapping offsets
+- subtle rotation
+- clipping masks
+- wave borders
+- large whitespace
+
+Hover:
+
+```text
+image scale 1 → 1.04
+caption rises slightly
+wave line appears
+```
+
+---
+
+# 22. VIDEO / REEL HANDLING
+
+Authentic supplied Reels should be treated as premium visual assets.
+
+Use:
+
+```html
+<video
+  muted
+  playsInline
+  loop
+/>
+```
+
+Autoplay only when appropriate.
+
+Use IntersectionObserver.
+
+When video leaves viewport:
+
+```text
+pause()
+```
+
+When it re-enters:
+
+```text
+play()
+```
+
+Respect browser autoplay restrictions.
+
+Do not force audio autoplay.
+
+---
+
+# 23. SECTION: “FROM THE KITCHEN”
+
+Create a visual food section using the strongest supplied food media.
+
+Do not invent dishes.
+
+Use real dish names from the scraper or menu assets only.
+
+Layout:
+
+```text
+large food image
 +
-small animated wave
+large editorial title
++
+small metadata
++
+short real description
 ```
 
-Keep it short.
+The image should dominate.
 
-Do not delay the site unnecessarily.
+---
 
-------------------------------------------------------------------------
+# 24. FOOD INTERACTION
 
-# 33. RESPONSIVE DESIGN
+Create a subtle “dish discovery” interaction.
 
-## Desktop ≥ 1200px
+Example:
 
--   cinematic hero
--   editorial typography
--   asymmetric layouts
--   premium menu slider
--   large gallery
--   rich motion
+A large food image sits in the center.
 
-## Tablet 768--1199px
+As the user scrolls:
 
--   simplify layouts
--   maintain visual hierarchy
--   reduce animation distances
--   maintain menu readability
+```text
+image changes
+dish name changes
+small wave line moves
+number changes
+```
 
-## Mobile ≤ 767px
+Example:
 
-Mobile must be intentionally designed.
+```text
+01 / 06
+```
+
+Do not show fake numbering if the dataset does not support the sequence.
+
+The sequence can simply represent UI position.
+
+---
+
+# 25. “CRAFT” SECTION
+
+Instead of generic feature cards, create an immersive visual statement.
+
+Possible structure:
+
+```text
+THE CRAFT
+
+large image/video
+
+small metadata
+caption
+
+animated wave divider
+```
+
+Use authentic restaurant preparation / serving / food media where available.
+
+Do not fabricate cooking claims.
+
+---
+
+# 26. SIGNATURE FOOD SHOWCASE
+
+Create a large horizontal experience.
+
+Desktop:
+
+```text
+← previous
+
+       LARGE IMAGE
+
+small text      dish name
+
+                    01 / 06
+
+next →
+```
+
+Mobile:
+
+Vertical card with swipe.
+
+The image should remain the hero.
+
+---
+
+# 27. MENU — CENTRAL EXPERIENCE
+
+The menu should be treated as one of the main experiences of the website.
+
+Do NOT use a boring PDF download section.
+
+Do NOT crop menu images.
+
+Use every relevant menu image inside:
+
+```text
+/menu
+```
+
+---
+
+# 28. MENU SLIDER REQUIREMENTS
+
+Mandatory behavior:
+
+- autoplay
+- change every 5 seconds
+- continuous loop
+- previous button
+- next button
+- pagination dots
+- mobile swipe
+- keyboard navigation
+- pause on hover
+- pause when offscreen
+- fullscreen/lightbox
+- escape to close lightbox
+- touch gestures
+- responsive layout
+- no image cropping
 
 Use:
 
-``` text
-20–24px horizontal padding
+```css
+object-fit: contain;
 ```
 
-Requirements:
+The entire menu page must remain readable.
 
--   no horizontal overflow
--   44px minimum touch targets
--   mobile navigation
--   horizontal menu categories if needed
--   full-width CTA where useful
--   readable menu images
--   swipeable menu slider
--   swipeable gallery
--   reduced parallax
--   reduced simultaneous video playback
+---
 
-The 5-second menu autoplay remains enabled on mobile unless the user
-explicitly pauses it.
+# 29. MENU VISUAL DESIGN
 
-------------------------------------------------------------------------
+Do not simply put images inside a generic carousel.
 
-# 34. ACCESSIBILITY
+Create a gallery-like menu experience.
 
-Required:
+Example:
 
--   semantic HTML
--   proper heading hierarchy
--   alt text
--   keyboard navigation
--   focus states
--   ARIA labels
--   accessible carousel controls
--   accessible lightbox
--   sufficient contrast
--   44px touch targets
--   reduced-motion support
+```text
+07 / MENU
 
-Implement:
+Take a seat.
 
-``` css
-@media (prefers-reduced-motion: reduce) {
-  /* disable/reduce non-essential animation */
-}
+[ MENU IMAGE ]
+
+          ←     →
+
+● ○ ○ ○ ○ ○
+
+[OPEN FULLSCREEN]
 ```
 
-For reduced-motion users, menu autoplay should stop or use a
-non-animated presentation.
+Use cream background.
 
-------------------------------------------------------------------------
+Add subtle orange and wave-blue controls.
 
-# 35. PERFORMANCE
+The current menu image can have a subtle shadow.
 
-Target:
+Background can use a faint paper texture.
 
-``` text
-Lighthouse Performance > 90 where practical
-```
+---
+
+# 30. MENU TRANSITION
+
+When changing menu images:
 
 Use:
 
--   WebP/AVIF where appropriate
--   responsive image sizes
--   lazy loading
--   video compression
--   poster images
--   viewport-based video playback
--   preload only critical hero assets
--   avoid simultaneous video playback
-
-The site must remain visually rich without becoming slow.
-
-------------------------------------------------------------------------
-
-# 36. SEO
-
-Implement:
-
--   title
--   meta description
--   Open Graph metadata
--   semantic headings
--   canonical URL when applicable
--   Restaurant structured data only with verified information
-
-Never put fake information into structured data.
-
-------------------------------------------------------------------------
-
-# 37. DATA ARCHITECTURE
-
-Keep restaurant information centralized.
-
-``` js
-export const restaurant = {
-  name: "Boat & Bites",
-  tagline: "",
-  description: "",
-  phone: "",
-  whatsapp: "",
-  email: "",
-  address: "",
-  city: "Surat",
-  hours: [],
-  instagram: "",
-  mapsUrl: ""
-};
-```
-
-Only populate verified values.
-
-Menu data, if extracted:
-
-``` js
-export const menu = [];
-```
-
-Instagram:
-
-``` js
-export const instagramMedia = [];
-```
-
-------------------------------------------------------------------------
-
-# 38. REACT STRUCTURE
-
-Use a clean reusable component architecture.
-
-``` text
-src/
-├── components/
-│   ├── layout/
-│   │   ├── Header.jsx
-│   │   ├── MobileMenu.jsx
-│   │   ├── Footer.jsx
-│   │   └── Section.jsx
-│   │
-│   ├── home/
-│   │   ├── Hero.jsx
-│   │   ├── BrandIntro.jsx
-│   │   ├── Atmosphere.jsx
-│   │   ├── SignatureFood.jsx
-│   │   ├── MenuSection.jsx
-│   │   ├── ReelsSection.jsx
-│   │   ├── Gallery.jsx
-│   │   ├── Story.jsx
-│   │   └── VisitSection.jsx
-│   │
-│   ├── menu/
-│   │   ├── MenuSlider.jsx
-│   │   ├── MenuControls.jsx
-│   │   └── MenuLightbox.jsx
-│   │
-│   ├── media/
-│   │   ├── SmartVideo.jsx
-│   │   ├── MediaCard.jsx
-│   │   └── MediaLightbox.jsx
-│   │
-│   └── common/
-│       ├── Button.jsx
-│       ├── SectionHeading.jsx
-│       ├── AnimatedWave.jsx
-│       └── Reveal.jsx
-│
-├── data/
-│   ├── restaurant.js
-│   ├── menu.js
-│   └── instagramMedia.js
-│
-├── assets/
-│   └── logo/
-│
-├── hooks/
-│   ├── useInView.js
-│   └── useMediaQuery.js
-│
-└── styles/
-    └── globals.css
-```
-
-------------------------------------------------------------------------
-
-# 39. MENU SLIDER IMPLEMENTATION REQUIREMENTS
-
-Create a reusable `MenuSlider` component.
-
-Requirements:
-
-``` text
-autoplay interval = 5000ms
-loop = true
-transition = 700–900ms
-pauseOnHover = true
-pauseWhenOffscreen = true
-keyboard accessible = true
-swipe enabled = true
-```
-
-State example:
-
-``` js
-const [currentIndex, setCurrentIndex] = useState(0);
-```
-
-Autoplay logic:
-
-``` text
-every 5000ms
-→ advance index
-→ loop to zero
-```
-
-Important:
-
-Do not restart the timer unexpectedly every render.
-
-Use a stable effect and cleanup the interval.
-
-When the page/tab is hidden, avoid unnecessary work.
-
-------------------------------------------------------------------------
-
-# 40. MENU SLIDER VISUAL BEHAVIOR
-
-The image should not suddenly disappear.
-
-Use:
-
-``` text
-current:
+```text
+current image
 opacity 1
-x 0
-
-next:
+scale 1
+↓
 opacity 0
-x 24px
-
-animate:
+scale .985
+↓
+next image
 opacity 1
-x 0
+scale 1
 ```
 
 Duration:
 
-``` text
-800ms
+```text
+500–700ms
 ```
 
 Ease:
 
-``` text
-cubic-bezier(0.22, 1, 0.36, 1)
+```text
+cubic-bezier
 ```
 
-Keep the menu frame size stable so the page does not jump between
-slides.
+Avoid aggressive carousel movement.
 
-------------------------------------------------------------------------
+---
 
-# 41. NO FAKE CONTENT
+# 31. MENU AUTOPLAY PROGRESS
 
-This is mandatory.
+Show a small 5-second progress indicator.
 
-Never invent:
+Example:
 
-``` text
-awards
-ratings
-reviews
-testimonials
-chef names
-founding year
-address
-phone
-email
-hours
-menu items
-prices
-ingredients
-special claims
-events
-reservation systems
+```text
+01
+────────────
+02
 ```
 
-If information is missing:
+or a small animated line.
 
-``` text
-hide it
+The line should use orange.
+
+When the timer completes:
+
+```text
+next menu image
 ```
 
-Do not insert fake placeholders.
+When hovering:
 
-------------------------------------------------------------------------
-
-# 42. IMAGE SELECTION
-
-Hero:
-
-Use strongest cinematic media.
-
-Food:
-
-Use highest-quality real food media.
-
-Atmosphere:
-
-Use interiors / people / restaurant moments.
-
-Gallery:
-
-Use varied images and videos.
-
-Avoid repeating the same image unnecessarily.
-
-Do not use low-resolution media in large sections.
-
-------------------------------------------------------------------------
-
-# 43. HUMAN-DESIGNED DETAILS
-
-Include a few intentionally imperfect editorial details:
-
--   overlapping image
--   large whitespace
--   thin divider
--   oversized serif word
--   asymmetrical image
--   wave line crossing a section
--   unusual but balanced image crop
--   non-uniform gallery proportions
--   subtle paper/texture feeling
-
-These should be intentional, not random.
-
-------------------------------------------------------------------------
-
-# 44. NO GENERIC AI COPY
-
-Avoid copy like:
-
-``` text
-A culinary journey like no other
-Where every bite tells a story
-Experience the perfect blend of taste and ambience
-Unforgettable dining experiences
-Your ultimate destination for food and fun
+```text
+pause timer
 ```
 
-Unless such wording is actually present in the restaurant's own
-material.
+When leaving viewport:
 
-Use the restaurant's actual voice wherever available.
-
-------------------------------------------------------------------------
-
-# 45. FINAL QUALITY CHECK
-
-Before considering the website complete:
-
--   [ ] Logo is used correctly.
--   [ ] Color palette clearly derives from the logo.
--   [ ] Visual language follows the polished/cozy approach of the Yaari
-    Social Cafe project.
--   [ ] Real Instagram media is extracted and used.
--   [ ] Supplied menu folder was inspected.
--   [ ] ALL relevant menu images are included in the slider.
--   [ ] Menu automatically changes every 5 seconds.
--   [ ] Menu slider loops continuously.
--   [ ] Menu supports next/previous controls.
--   [ ] Menu supports mobile swipe.
--   [ ] Menu image uses `object-contain`.
--   [ ] Menu text is not cropped.
--   [ ] Menu has fullscreen viewing.
--   [ ] Hero feels cinematic.
--   [ ] Every major section has tasteful motion.
--   [ ] Motion is subtle rather than distracting.
--   [ ] Videos pause when outside the viewport.
--   [ ] Gallery feels editorial rather than generic.
--   [ ] Mobile layout is intentionally designed.
--   [ ] No horizontal overflow.
--   [ ] No fake restaurant information.
--   [ ] Accessibility is implemented.
--   [ ] Reduced-motion behavior is implemented.
--   [ ] Performance is optimized.
--   [ ] SEO metadata is present.
--   [ ] The final site does not look AI-generated.
-
-------------------------------------------------------------------------
-
-# 46. IMPLEMENTATION ORDER FOR ANTIGRAVITY
-
-Do not immediately start writing random UI components.
-
-Follow this order:
-
-## Phase 1 --- Inspect
-
-1.  Inspect supplied logo.
-2.  Inspect entire project.
-3.  Inspect `menu` folder.
-4.  Inspect Instagram scrape/dataset.
-5.  Identify all restaurant data.
-6.  Identify all image/video assets.
-
-## Phase 2 --- Foundation
-
-1.  React + Vite
-2.  Tailwind
-3.  fonts
-4.  global color tokens
-5.  layout
-6.  navbar
-7.  footer
-
-## Phase 3 --- Assets
-
-1.  place logo
-2.  organize menu images
-3.  organize Instagram media
-4.  create media manifest
-5.  optimize large images/videos
-
-## Phase 4 --- Core Sections
-
-1.  hero
-2.  intro
-3.  atmosphere
-4.  signature food
-5.  menu
-6.  reels
-7.  gallery
-8.  story
-9.  visit
-
-## Phase 5 --- Motion
-
-1.  reveal system
-2.  hero animation
-3.  image mask reveal
-4.  image breathing
-5.  parallax
-6.  wave animation
-7.  menu 5-second autoplay
-8.  lightbox transitions
-9.  hover interactions
-
-## Phase 6 --- Polish
-
-1.  mobile refinement
-2.  accessibility
-3.  performance
-4.  SEO
-5.  animation audit
-6.  spacing audit
-7.  content accuracy audit
-
-------------------------------------------------------------------------
-
-# 47. FINAL CREATIVE DIRECTION
-
-The final experience should feel like:
-
-> **A premium evening at Boat & Bites brought to life on screen.**
-
-Think:
-
-``` text
-warm cream
-deep ink
-orange accents
-blue/purple waves
-beautiful food
-cinematic restaurant moments
-editorial typography
-slow movement
-real Instagram content
-authentic menu
+```text
+pause timer
 ```
 
-The website should feel:
+---
 
-``` text
-COZY FIRST
-PREMIUM SECOND
-ANIMATED THIRD
+# 32. MENU FULLSCREEN
+
+Clicking the menu image opens a fullscreen viewer.
+
+Viewer:
+
+- dark ink background
+- image centered
+- object-contain
+- zoom
+- previous/next
+- close
+- keyboard support
+- mobile pinch if practical
+
+Never crop menu text.
+
+---
+
+# 33. MENU MICRO-INTERACTION
+
+When hovering the menu:
+
+A small label appears:
+
+```text
+VIEW FULL MENU
 ```
 
-Animation should make the restaurant feel alive.
+with a subtle wave icon.
 
-It should never look like the animation library is the main attraction.
+Do not use excessive animation.
 
-------------------------------------------------------------------------
+---
 
-# 48. FINAL ANTIGRAVITY INSTRUCTION
+# 34. CONTINUOUS MARQUEE
 
-Build the Boat & Bites website using this document as the primary design
-specification.
+Create at least one strong horizontal marquee.
 
-Before coding, inspect the supplied assets and dataset.
+Possible content:
 
-Use the supplied logo as the visual foundation.
+```text
+BOAT & BITES · FOOD · TABLES · MOMENTS · BOAT & BITES
+```
 
-Use the real Instagram scrape for restaurant media and factual content.
+Only use factual brand/content phrases.
 
-Use the menu images already present in the `menu` folder.
+The marquee should use:
 
-The menu must automatically slide to the next menu image every **5
-seconds**, continuously looping, with elegant transitions, manual
-controls, mobile swipe, and fullscreen viewing.
+- cream/ink
+- orange separators
+- subtle wave marks
 
-The final website must be:
+Animation:
 
-``` text
-premium
-cozy
-aesthetic
-professional
-responsive
-fast
-accessible
-cinematic
+slow continuous horizontal movement.
+
+The marquee can separate major sections.
+
+---
+
+# 35. THE WAVE AS A DESIGN SYSTEM
+
+The wave is one of the most important recurring elements.
+
+Create one reusable SVG component:
+
+```text
+WaveLine
+```
+
+Variants:
+
+```text
+blue
+purple
+orange
+ink
+```
+
+Use it for:
+
+- section separators
+- hover lines
+- progress bars
+- menu indicators
+- loading animation
+- scroll indicator
+- route illustration
+- footer decoration
+
+Do not use the wave everywhere.
+
+It should feel like a recurring signature.
+
+---
+
+# 36. “THE PLACE” SECTION
+
+Create a dramatic section showing the physical restaurant.
+
+Use authentic exterior/interior images.
+
+Possible interaction:
+
+As the user scrolls:
+
+```text
+small image
+↓
+expands
+↓
+becomes full-width
+↓
+next image appears
+```
+
+The effect should feel like the restaurant is revealing itself.
+
+---
+
+# 37. SCROLL-TO-DRAW EFFECT
+
+One signature interaction should be a line drawing that develops while scrolling.
+
+Example:
+
+At the start:
+
+```text
+small wave line
+```
+
+As user scrolls:
+
+```text
+wave grows
+↓
+boat appears
+↓
+route continues
+↓
+section title appears
+```
+
+Use SVG stroke-dasharray / stroke-dashoffset.
+
+This should be lightweight and performant.
+
+---
+
+# 38. PHOTO REVEALS
+
+Authentic images should enter using:
+
+```text
+clip-path
+```
+
+or masked reveal.
+
+Example:
+
+```text
+image hidden behind vertical mask
+↓
+mask expands
+↓
+full image revealed
+```
+
+Use approximately:
+
+```text
+0.8–1.2s
+```
+
+Do not animate every image individually if it creates performance problems.
+
+---
+
+# 39. IMAGE HOVER
+
+Desktop:
+
+```text
+scale 1 → 1.035
+```
+
+Very subtle.
+
+Add:
+
+- small caption movement
+- wave underline
+- arrow movement
+
+Mobile:
+
+Remove hover-only interactions.
+
+---
+
+# 40. STORY SECTION
+
+If the scraper contains a real restaurant story, create an editorial story section.
+
+If no real story is available:
+
+Do not fabricate one.
+
+Instead create:
+
+```text
+THE BOAT & BITES JOURNEY
+```
+
+using only available real media and captions.
+
+Possible layout:
+
+```text
+large heading
+small metadata
+large image
+short authentic caption
+```
+
+---
+
+# 41. INSTAGRAM / SOCIAL SECTION
+
+Use the scraper dataset as the source.
+
+Do not create fake Instagram cards.
+
+If Instagram links exist, link to the actual post.
+
+Show:
+
+- authentic images
+- authentic Reels
+- real captions where useful
+- real dates where available
+
+Avoid showing excessive metadata.
+
+The purpose is visual storytelling, not data dumping.
+
+---
+
+# 42. SOCIAL MEDIA INTERACTION
+
+Desktop:
+
+Horizontal drag.
+
+Mobile:
+
+Swipe.
+
+Allow:
+
+```text
+drag
+momentum
+snap
+```
+
+Cards can overlap slightly.
+
+Use different image heights to create an editorial rhythm.
+
+---
+
+# 43. “DISCOVER THE BOAT” INTERACTION
+
+Create a small interactive object near the middle of the website.
+
+A miniature orange boat travels across a wave.
+
+When hovered/clicked:
+
+```text
+boat moves
+wave expands
+section reveals
+```
+
+Possible destinations:
+
+```text
+MENU
+MOMENTS
+VISIT
+```
+
+Only include destinations that actually exist.
+
+This should feel like a brand Easter egg.
+
+---
+
+# 44. VISIT SECTION
+
+Use only real contact/location information from supplied data.
+
+If address exists:
+
+show address.
+
+If phone exists:
+
+show phone.
+
+If Instagram exists:
+
+show Instagram.
+
+If map information exists:
+
+show map.
+
+If something is unavailable:
+
+do not create placeholder information.
+
+---
+
+# 45. VISIT SECTION VISUAL
+
+Do not create a generic contact form unless required.
+
+Instead:
+
+Large heading:
+
+```text
+COME ABOARD
+```
+
+only if appropriate and not misleading.
+
+Otherwise use:
+
+```text
+VISIT
+```
+
+Then:
+
+- authentic exterior image
+- address
+- contact
+- opening hours
+- social link
+
+with real data only.
+
+---
+
+# 46. FOOTER
+
+Footer should feel like the end of the voyage.
+
+Use deep ink.
+
+Include:
+
+- Boat & Bites logo
+- real navigation links
+- real social link
+- real contact details if supplied
+
+Add a subtle animated wave at the top of the footer.
+
+Final line can be minimal.
+
+Do not invent a slogan.
+
+---
+
+# 47. FOOTER ANIMATION
+
+As footer enters viewport:
+
+```text
+wave line draws
+↓
+logo fades in
+↓
+navigation appears
+```
+
+The wave should travel slowly from one side to another.
+
+---
+
+# 48. PAGE TRANSITION SYSTEM
+
+Use Framer Motion.
+
+Transitions should feel connected.
+
+Recommended:
+
+```text
+opacity
+y
+clip-path
+scale
+```
+
+Avoid:
+
+```text
+spin
+bounce
+elastic overshoot everywhere
+```
+
+The website should feel editorial, not like a motion-design demo.
+
+---
+
+# 49. MOTION TIMING
+
+Recommended durations:
+
+```text
+micro interaction: 180–250ms
+hover: 250–400ms
+small reveal: 500–700ms
+section reveal: 700–1000ms
+hero transition: 1000–1400ms
+splash: exactly 4 seconds
+```
+
+Use smooth easing.
+
+---
+
+# 50. SCROLL EXPERIENCE
+
+Scrolling should reveal content progressively.
+
+Do not trigger all animations at page load.
+
+Use:
+
+```text
+IntersectionObserver
+```
+
+and Framer Motion viewport triggers.
+
+Recommended:
+
+```text
+once: true
+amount: 0.15–0.3
+```
+
+for normal reveals.
+
+For interactive sections, use scroll progress.
+
+---
+
+# 51. PARALLAX
+
+Use subtle parallax:
+
+```text
+background image: 0.95x
+foreground image: 1x
+text: 1.02x
+```
+
+Do not create extreme movement.
+
+Parallax should be barely noticeable but make the page feel alive.
+
+Disable or reduce on mobile.
+
+---
+
+# 52. CURSOR
+
+Desktop only.
+
+Optional custom cursor:
+
+- small circular ink cursor
+- expands on interactive elements
+- becomes a small wave ring over images
+
+Do NOT create a giant flashy cursor.
+
+Do NOT make the cursor interfere with usability.
+
+Mobile:
+
+disabled.
+
+---
+
+# 53. PAPER / MATERIAL TEXTURE
+
+The cream sections may have an extremely subtle paper texture.
+
+It should be almost invisible.
+
+Do not use a noisy background.
+
+The goal is:
+
+```text
+printed editorial object
+```
+
+not:
+
+```text
+old paper website
+```
+
+---
+
+# 54. BORDER LANGUAGE
+
+Use thin borders.
+
+Recommended:
+
+```css
+border: 1px solid rgba(23,23,23,.12);
+```
+
+Use rounded corners sparingly.
+
+Avoid excessive:
+
+```text
+rounded-xl
+rounded-2xl
+cards everywhere
+```
+
+The design should feel editorial rather than SaaS.
+
+---
+
+# 55. CARD DESIGN
+
+Do not make every section a card.
+
+Prefer:
+
+- open layouts
+- images
+- typography
+- lines
+- whitespace
+- overlapping compositions
+
+Cards should be used only when they improve interaction.
+
+---
+
+# 56. DESKTOP LAYOUT
+
+Recommended max width:
+
+```text
+1280–1440px
+```
+
+Use generous horizontal margins.
+
+Example:
+
+```text
+px-6
+lg:px-10
+xl:px-16
+```
+
+Do not make content too narrow.
+
+---
+
+# 57. MOBILE DESIGN
+
+Mobile must feel intentionally designed.
+
+Do NOT simply stack the desktop design.
+
+Mobile should have:
+
+- simplified motion
+- large typography
+- swipeable media
+- full-width imagery
+- accessible controls
+- readable menu
+- comfortable tap targets
+
+Menu must remain completely readable.
+
+---
+
+# 58. MOBILE SPLASH
+
+The splash should still feel premium.
+
+Use:
+
+```text
+cream background
+small wave
+boat movement
+logo reveal
+```
+
+The 4-second timing remains.
+
+Do not make the splash unnecessarily heavy.
+
+---
+
+# 59. MOBILE NAVIGATION
+
+Use:
+
+```text
+logo
+menu icon
+```
+
+Menu opens as an elegant full-screen overlay.
+
+Use deep ink or cream.
+
+Animate:
+
+```text
+wave line
+nav items
+close button
+```
+
+Do not use a generic hamburger drawer.
+
+---
+
+# 60. RESPONSIVE BREAKPOINTS
+
+Support at minimum:
+
+```text
+360px
+390px
+430px
+768px
+1024px
+1280px
+1440px+
+```
+
+Test all major sections.
+
+---
+
+# 61. ACCESSIBILITY
+
+Required:
+
+- semantic HTML
+- alt text for real images
+- keyboard navigation
+- visible focus state
+- accessible buttons
+- accessible menu controls
+- escape to close modal
+- reduced motion support
+- sufficient contrast
+- no interaction dependent only on hover
+
+Use:
+
+```css
+@media (prefers-reduced-motion: reduce)
+```
+
+Reduce:
+
+- parallax
+- cursor effects
+- scroll animations
+- autoplay motion
+
+Keep content usable.
+
+---
+
+# 62. PERFORMANCE
+
+This website is media-heavy.
+
+Optimize aggressively.
+
+Use:
+
+```text
+lazy loading
+poster images
+compressed videos
+responsive image sizes
+WebP/AVIF where practical
+```
+
+Hero media can load eagerly.
+
+Below-the-fold media should lazy load.
+
+Do not load every Reel at once.
+
+---
+
+# 63. VIDEO PERFORMANCE
+
+For videos:
+
+```text
+muted
+playsInline
+preload="metadata"
+```
+
+Use poster images.
+
+Pause offscreen videos.
+
+Avoid playing multiple large videos simultaneously.
+
+---
+
+# 64. IMAGE PERFORMANCE
+
+Use responsive sources where practical:
+
+```text
+srcSet
+sizes
+```
+
+Do not render a 4000px image into a 400px card unnecessarily.
+
+---
+
+# 65. SEO
+
+Create:
+
+```text
+title
+meta description
+Open Graph
+Twitter metadata
+canonical URL
+```
+
+Only use verified restaurant information.
+
+Do not generate fake SEO keywords.
+
+Use Restaurant schema only when the required real fields exist.
+
+---
+
+# 66. DATA ARCHITECTURE
+
+Do not hardcode all scraped content directly into JSX.
+
+Create a content layer.
+
+Example:
+
+```text
+src/
+  data/
+    restaurant.ts
+    instagram.ts
+    menu.ts
+    media.ts
+```
+
+Example:
+
+```ts
+export const restaurant = {
+  name: "Boat & Bites",
+  address: "...",
+  phone: "...",
+};
+```
+
+Only include fields actually available.
+
+---
+
+# 67. MEDIA MANIFEST
+
+Create:
+
+```text
+src/data/media.ts
+```
+
+with normalized assets.
+
+Example:
+
+```ts
+export const media = {
+  hero: [],
+  food: [],
+  interiors: [],
+  exterior: [],
+  reels: [],
+  moments: [],
+  menu: [],
+};
+```
+
+Do not duplicate media unnecessarily.
+
+---
+
+# 68. COMPONENT ARCHITECTURE
+
+Recommended:
+
+```text
+src/
+  components/
+    layout/
+      Navbar.tsx
+      Footer.tsx
+
+    splash/
+      SplashScreen.tsx
+      BoatLogoReveal.tsx
+
+    hero/
+      Hero.tsx
+
+    voyage/
+      VoyagePath.tsx
+      BoatJourney.tsx
+
+    media/
+      MediaReveal.tsx
+      ReelPlayer.tsx
+      ImageReveal.tsx
+
+    moments/
+      MomentsRail.tsx
+      MomentCard.tsx
+
+    food/
+      FoodShowcase.tsx
+      SignatureDish.tsx
+
+    menu/
+      MenuExperience.tsx
+      MenuSlider.tsx
+      MenuLightbox.tsx
+      MenuProgress.tsx
+
+    effects/
+      WaveLine.tsx
+      Marquee.tsx
+      SectionReveal.tsx
+      ParallaxImage.tsx
+
+    visit/
+      VisitSection.tsx
+```
+
+---
+
+# 69. REUSABLE WAVE COMPONENT
+
+Create:
+
+```tsx
+<WaveLine />
+```
+
+Props:
+
+```ts
+color
+variant
 animated
-authentic
+speed
+direction
 ```
 
-Most importantly:
+This creates visual consistency.
 
-> **Do not build a generic restaurant website. Build a visually
-> art-directed Boat & Bites brand experience using the actual assets
-> supplied by the restaurant.**
+---
+
+# 70. REUSABLE REVEAL COMPONENT
+
+Create:
+
+```tsx
+<SectionReveal>
+```
+
+Support:
+
+```text
+fade
+slide
+clip
+scale
+```
+
+Keep animations consistent.
+
+---
+
+# 71. SPLASH IMPLEMENTATION
+
+Recommended:
+
+```tsx
+<SplashScreen
+  duration={4000}
+/>
+```
+
+Sequence:
+
+```text
+0–800ms
+wave
+
+800–1600ms
+boat
+
+1600–2500ms
+wave expansion
+
+2500–3300ms
+logo construction
+
+3300–4000ms
+logo hold
+
+4000ms
+hero transition
+```
+
+Use Framer Motion.
+
+If the supplied 4-second generated video is used:
+
+- preload poster
+- autoplay muted
+- playsInline
+- fallback to SVG/CSS logo animation if video cannot autoplay
+
+---
+
+# 72. SPLASH VIDEO SPECIFICATION
+
+The generated splash video should be designed specifically for this website.
+
+Recommended concept:
+
+> A warm cream paper field. A hand-drawn orange boat enters from the left. The boat creates elegant blue and purple waves. The wave path becomes the circular structure of the Boat & Bites identity. Dark ink details are drawn in. The exact supplied Boat & Bites logo resolves at the end. The animation feels like a premium restaurant brand sketch coming to life.
+
+Duration:
+
+```text
+4 seconds
+```
+
+No:
+
+- extra text
+- people
+- food
+- random scenery
+- ocean realism
+- logo redesign
+- watermark
+
+The animation should be:
+
+```text
+sketch
+editorial
+minimal
+cinematic
+premium
+organic
+```
+
+---
+
+# 73. SPLASH FALLBACK
+
+If the video is unavailable:
+
+Create the same animation in code using:
+
+```text
+SVG paths
+Framer Motion
+opacity
+strokeDashoffset
+transform
+```
+
+The experience must still work.
+
+---
+
+# 74. HERO VIDEO FALLBACK
+
+If a suitable Reel/video exists:
+
+use it.
+
+If not:
+
+use the strongest supplied image.
+
+If no suitable hero media exists:
+
+use the supplied logo with the animated wave system.
+
+Never use stock footage.
+
+---
+
+# 75. CONTENT PRIORITY
+
+When choosing assets:
+
+## Priority 1
+
+Real Boat & Bites video / Reel showing:
+
+- food
+- atmosphere
+- exterior
+- restaurant experience
+
+## Priority 2
+
+Strong authentic restaurant images.
+
+## Priority 3
+
+Menu imagery.
+
+## Priority 4
+
+Logo and brand assets.
+
+Do not use generic stock assets.
+
+---
+
+# 76. IMAGE SELECTION RULE
+
+Do not randomly assign images.
+
+For each image ask:
+
+```text
+What story does this image tell?
+```
+
+Use:
+
+- food image → food story
+- interior → place story
+- people → social/moment story
+- exterior → arrival/visit
+- preparation → craft
+- logo → brand transitions
+
+---
+
+# 77. EDITORIAL COMPOSITION
+
+Use asymmetry.
+
+Example:
+
+```text
+             SMALL LABEL
+
+     LARGE IMAGE
+
+                    SMALL IMAGE
+
+        HEADING
+
+                         IMAGE
+```
+
+Avoid:
+
+```text
+[card][card][card]
+[card][card][card]
+```
+
+unless appropriate for a specific collection.
+
+---
+
+# 78. SECTION NUMBERING
+
+Use editorial numbering where helpful:
+
+```text
+01 / ARRIVAL
+02 / THE VOYAGE
+03 / THE TABLE
+04 / FOOD
+05 / MENU
+06 / MOMENTS
+07 / VISIT
+```
+
+Do not overuse numbering.
+
+---
+
+# 79. LARGE TYPOGRAPHIC MOMENTS
+
+Use very large typography at selected points.
+
+Example:
+
+```text
+THE
+VOYAGE
+```
+
+or:
+
+```text
+GOOD
+FOOD.
+GOOD
+MOMENTS.
+```
+
+BUT:
+
+Only use statements supported by the supplied brand direction.
+
+Do not invent marketing claims.
+
+---
+
+# 80. INTERACTIVE SECTION TRANSITIONS
+
+Every major transition should have a visual bridge.
+
+Examples:
+
+```text
+hero → voyage
+wave expands
+
+voyage → food
+boat crosses screen
+
+food → menu
+image folds into menu frame
+
+menu → moments
+menu page slides into photo strip
+
+moments → visit
+wave route reaches destination
+```
+
+This is what makes the website feel like one experience.
+
+---
+
+# 81. MENU → MOMENTS TRANSITION
+
+At the bottom of the menu:
+
+Create a small animated wave.
+
+As user scrolls:
+
+```text
+wave travels
+↓
+becomes a photo strip
+↓
+Instagram moments appear
+```
+
+Do not force an overly complex WebGL effect.
+
+SVG/CSS/Framer Motion is enough.
+
+---
+
+# 82. FOOD → MENU TRANSITION
+
+The final food image can visually align with the menu frame.
+
+Use:
+
+```text
+large food image
+↓
+cream mask
+↓
+menu image
+```
+
+This creates continuity.
+
+---
+
+# 83. MICROINTERACTIONS
+
+Buttons:
+
+```text
+arrow moves 4–8px
+```
+
+Links:
+
+```text
+wave underline draws
+```
+
+Images:
+
+```text
+scale 1.03
+```
+
+Menu controls:
+
+```text
+orange indicator
+```
+
+Boat:
+
+```text
+tiny movement
+```
+
+Do not animate everything.
+
+---
+
+# 84. LOADING EXPERIENCE
+
+If initial assets require time:
+
+Do not show a spinner.
+
+Show:
+
+```text
+Boat & Bites splash
+```
+
+The splash is the loading experience.
+
+The user should feel the site is intentionally opening.
+
+---
+
+# 85. ERROR / EMPTY STATES
+
+If Instagram content is missing:
+
+Do not show empty cards.
+
+If menu images are missing:
+
+Do not show broken image icons.
+
+If video fails:
+
+fallback to poster image.
+
+If location is unavailable:
+
+hide visit map.
+
+---
+
+# 86. NO GENERIC AI WEBSITE LOOK
+
+Avoid:
+
+- generic glassmorphism
+- excessive gradients
+- glowing blobs
+- floating 3D cards
+- random abstract shapes
+- excessive rounded cards
+- huge shadows
+- fake testimonials
+- stock restaurant images
+- fake statistics
+- generic “About Us” copy
+- generic “Best Restaurant” claims
+
+The website must look intentionally art-directed.
+
+---
+
+# 87. VISUAL QUALITY TARGET
+
+The final website should feel closer to:
+
+```text
+premium brand website
++
+editorial magazine
++
+restaurant film
++
+interactive story
+```
+
+than:
+
+```text
+restaurant template
+```
+
+---
+
+# 88. ANIMATION QUALITY TARGET
+
+Motion should communicate hierarchy.
+
+Bad:
+
+```text
+everything moves
+```
+
+Good:
+
+```text
+boat moves
+wave follows
+content reveals
+image breathes
+```
+
+The user should understand why an element is moving.
+
+---
+
+# 89. DESKTOP EXPERIENCE TARGET
+
+At 1440px desktop:
+
+The site should have:
+
+- cinematic hero
+- strong negative space
+- large typography
+- editorial images
+- animated boat/wave
+- horizontal discovery
+- premium menu
+- smooth section transitions
+- strong footer
+
+Avoid excessive empty space without purpose.
+
+---
+
+# 90. MOBILE EXPERIENCE TARGET
+
+At 390px:
+
+The site should feel like a premium mobile brand experience.
+
+Important:
+
+- no horizontal overflow
+- menu fully readable
+- videos fit viewport
+- buttons large enough
+- no broken parallax
+- no oversized typography
+- no overlapping text
+- no clipped images
+- no inaccessible carousel controls
+
+---
+
+# 91. TESTING REQUIREMENTS
+
+After implementation, run the site.
+
+Actually inspect it.
+
+Test:
+
+```text
+desktop 1440px
+desktop 1280px
+tablet 768px
+mobile 430px
+mobile 390px
+mobile 360px
+```
+
+Check:
+
+- splash
+- hero
+- navbar
+- scroll transitions
+- wave animations
+- food media
+- menu slider
+- menu fullscreen
+- Instagram rail
+- videos
+- visit section
+- footer
+
+---
+
+# 92. SPLASH QA
+
+Verify:
+
+- exactly 4 seconds
+- logo is not distorted
+- boat movement is visible
+- wave animation is smooth
+- final logo is readable
+- no white flash
+- no black flash
+- hero begins smoothly
+- mobile works
+- reduced motion works
+
+---
+
+# 93. MENU QA
+
+Verify:
+
+- every relevant menu image is included
+- autoplay is exactly 5 seconds
+- loop works
+- previous works
+- next works
+- dots work
+- swipe works
+- hover pause works
+- offscreen pause works
+- fullscreen works
+- object-contain works
+- menu text is never cropped
+
+---
+
+# 94. MEDIA QA
+
+Verify:
+
+- no broken images
+- no broken videos
+- no fake media
+- no duplicate media where avoidable
+- no low-quality stretched images
+- authentic Instagram media is used
+- captions match the actual content
+
+---
+
+# 95. CONTENT QA
+
+Search the source code for suspicious invented phrases.
+
+Check for:
+
+```text
+Lorem ipsum
+Best restaurant
+award winning
+finest
+premium dining
+world class
+our chef
+our story
+five star
+4.9
+```
+
+Remove anything not supported by project data.
+
+---
+
+# 96. RESPONSIVE QA
+
+Check for:
+
+- horizontal overflow
+- text clipping
+- buttons outside viewport
+- menu crop
+- video crop
+- overlapping navbar
+- broken SVG
+- broken fixed elements
+- excessive animation on mobile
+
+---
+
+# 97. PERFORMANCE QA
+
+Use browser performance tools.
+
+Check:
+
+- Largest Contentful Paint
+- image loading
+- video loading
+- excessive JS
+- layout shifts
+- animation frame rate
+
+Avoid expensive effects.
+
+---
+
+# 98. ACCESSIBILITY QA
+
+Check:
+
+- keyboard tab navigation
+- focus states
+- screen-reader labels
+- image alt text
+- modal escape
+- carousel controls
+- reduced motion
+
+---
+
+# 99. FINAL ART-DIRECTION CHECK
+
+Before declaring complete, ask:
+
+### Does it feel like Boat & Bites?
+
+Not:
+
+```text
+generic restaurant website
+```
+
+### Does the boat matter?
+
+It should.
+
+### Do the waves matter?
+
+They should.
+
+### Does the website move like a journey?
+
+It should.
+
+### Does the menu feel special?
+
+It should.
+
+### Does the splash feel memorable?
+
+It must.
+
+### Does the color palette remain the approved Boat & Bites palette?
+
+It must.
+
+### Does the website use real supplied content?
+
+It must.
+
+---
+
+# 100. FINAL CREATIVE CONCEPT
+
+The entire website should communicate one idea:
+
+> **You are not browsing a restaurant website. You are taking a short visual voyage through Boat & Bites.**
+
+The boat is the guide.
+
+The waves are the transition language.
+
+The food is the destination.
+
+The menu is the map.
+
+The Instagram moments are the memories.
+
+The visit section is where the voyage arrives.
+
+The splash screen is the departure.
+
+---
+
+# 101. IMPLEMENTATION ORDER
+
+Build in this order:
+
+```text
+1. Inspect all files and data
+2. Build content/media manifest
+3. Lock color tokens
+4. Lock typography
+5. Build WaveLine system
+6. Build SplashScreen
+7. Build hero
+8. Build navigation
+9. Build Boat Journey section
+10. Build food showcase
+11. Build place/story sections
+12. Build MenuExperience
+13. Build Instagram/Moments rail
+14. Build Visit section
+15. Build Footer
+16. Add transitions
+17. Add responsive behavior
+18. Add accessibility
+19. Optimize media
+20. Run full QA
+21. Polish visually
+```
+
+---
+
+# 102. IMPORTANT ANTIGRAVITY INSTRUCTION
+
+Do not stop after creating the first working version.
+
+Build the site.
+
+Run it.
+
+Open it.
+
+Inspect it visually.
+
+Fix it.
+
+Then inspect again.
+
+Specifically look for:
+
+- generic-looking sections
+- weak typography
+- bad spacing
+- excessive cards
+- awkward animation
+- poor image cropping
+- menu readability
+- mobile overflow
+- weak transitions
+- inconsistent wave graphics
+- poor hierarchy
+- excessive colors
+- slow media
+- fake content
+- disconnected sections
+
+Iterate until the website feels professionally art-directed.
+
+---
+
+# 103. FINAL REQUIREMENT
+
+The finished Boat & Bites website must feel:
+
+**COZY**
+
+**PREMIUM**
+
+**CINEMATIC**
+
+**EDITORIAL**
+
+**INTERACTIVE**
+
+**RESTAURANT-FOCUSED**
+
+**BOAT-INSPIRED**
+
+**AUTHENTIC**
+
+**MEMORABLE**
+
+while preserving the existing Boat & Bites color identity exactly.
+
+The inspiration is the **level of experience and storytelling**, not the appearance of The Cocova.
+
+Build something that makes the visitor think:
+
+> **“This restaurant has a world of its own.”**
+

@@ -17,14 +17,14 @@ export const Story: React.FC = () => {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-brand-sand">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-brand-sand bg-brand-cream">
               <img
-                src="/menu/unnamed.webp"
-                alt="Boat & Bites Cruise Shape"
-                className="w-full h-auto object-contain bg-brand-ink/5 p-4"
+                src="/cruise-sketch.jpg"
+                alt="Boat & Bites Cruise Architectural Concept Sketch"
+                className="w-full h-auto object-cover"
               />
-              <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-brand-orange text-white text-xs font-sans font-semibold uppercase tracking-wider shadow-md">
-                Est. Surat
+              <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-brand-ink/85 backdrop-blur-md text-brand-orange border border-brand-orange/30 text-xs font-sans font-semibold uppercase tracking-wider shadow-md">
+                Cruise Concept Sketch
               </div>
             </div>
 

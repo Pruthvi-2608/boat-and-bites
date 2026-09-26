@@ -1,146 +1,142 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, Phone, Navigation } from 'lucide-react';
-import { restaurantData } from '../../data/restaurant';
-import { MobileDrawer } from './MobileDrawer';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu as MenuIcon, X, Phone, Anchor } from 'lucide-react';
+import { BoatLogo } from '../common/BoatLogo';
 
-export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+const NAV_LINKS = [
+  { name: 'VOYAGE DECK', href: '#voyage' },
+  { name: 'ATMOSPHERE', href: '#atmosphere' },
+  { name: 'UNLIMITED MENU', href: '#menu' },
+  { name: 'BANQUETS', href: '#banquets' },
+  { name: 'OUR STORY', href: '#story' },
+  { name: 'VISIT US', href: '#visit' },
+];
+
+export function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 40);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Crisp single-line nav links
-  const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Atmosphere', href: '#atmosphere' },
-    { label: 'Menu', href: '#menu' },
-    { label: 'Banquet', href: '#banquet' },
-    { label: 'From Our Table', href: '#reels' },
-    { label: 'Moments', href: '#gallery' },
-    { label: 'Visit', href: '#visit' }
-  ];
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-border py-2.5 sm:py-3'
-            : 'bg-gradient-to-b from-black/85 via-black/50 to-transparent py-3 sm:py-4'
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
+          scrolled
+            ? 'bg-[#101820]/90 backdrop-blur-md border-b border-[#FAF4F3]/10 py-3 shadow-xl'
+            : 'bg-transparent py-4'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
-          {/* Logo & Brand Identity */}
-          <a
-            href="#home"
-            className="flex items-center gap-2.5 sm:gap-3 shrink-0 group focus:outline-none"
-            aria-label="Boat & Bites Home"
-          >
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white p-1 shadow-md transition-transform duration-300 group-hover:scale-105 shrink-0">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+          {/* Logo & Brand Emblem */}
+          <a href="#" className="flex items-center gap-3 group z-50">
+            <div className="w-11 h-11 rounded-full border border-[#F0822A]/40 bg-[#FAF4F3] flex items-center justify-center p-1 overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-md">
               <img
                 src="/logo.png"
-                alt="Boat & Bites Logo"
-                className="w-full h-full object-contain rounded-full"
+                alt="Boat & Bites Emblem"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  // Fallback to vector SVG if png fails
+                  e.currentTarget.style.display = 'none';
+                }}
               />
             </div>
-            <div className="flex flex-col whitespace-nowrap">
-              <span
-                className={`font-serif text-lg sm:text-2xl font-bold tracking-tight leading-none transition-colors ${
-                  isScrolled ? 'text-brand-ink' : 'text-white'
-                }`}
-              >
-                BOAT & BITES
+            <div className="flex flex-col">
+              <span className="font-serif text-lg font-bold tracking-wider text-[#FAF4F3] group-hover:text-[#F0822A] transition-colors">
+                BOAT &amp; BITES
               </span>
-              <span
-                className={`text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.18em] font-sans font-semibold mt-0.5 whitespace-nowrap ${
-                  isScrolled ? 'text-brand-orange' : 'text-brand-orange'
-                }`}
-              >
-                Cruise Theme Dining • Surat
+              <span className="text-[9px] font-mono text-[#F0822A] tracking-widest uppercase -mt-1">
+                WATERFRONT DINING &#8226; SURAT
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 whitespace-nowrap">
-            {navLinks.map((link) => (
+          {/* Desktop Editorial Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
               <a
-                key={link.label}
+                key={link.name}
                 href={link.href}
-                className={`group relative text-xs uppercase tracking-[0.14em] font-sans font-semibold whitespace-nowrap transition-colors ${
-                  isScrolled
-                    ? 'text-brand-text hover:text-brand-orange'
-                    : 'text-white/90 hover:text-brand-orange'
-                }`}
+                className="text-xs font-mono tracking-widest text-[#FAF4F3]/80 hover:text-[#F0822A] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#F0822A] hover:after:w-full after:transition-all after:duration-300"
               >
-                {link.label}
-                <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-brand-orange transition-all duration-300 group-hover:w-full" />
+                {link.name}
               </a>
             ))}
           </nav>
 
-          {/* Desktop CTAs */}
-          <div className="hidden sm:flex items-center gap-2.5 shrink-0 whitespace-nowrap">
+          {/* Right Action Button */}
+          <div className="hidden md:flex items-center gap-4">
             <a
-              href={`tel:${restaurantData.phones[0]}`}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-sans font-semibold tracking-wider whitespace-nowrap transition-all duration-200 ${
-                isScrolled
-                  ? 'bg-brand-ink text-white hover:bg-brand-orange'
-                  : 'bg-white/15 text-white hover:bg-brand-orange backdrop-blur-sm border border-white/20'
-              }`}
+              href="tel:+919974615111"
+              className="inline-flex items-center gap-2 bg-[#F0822A] hover:bg-[#d9711c] text-white text-xs font-mono tracking-wider px-5 py-2.5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md shadow-[#F0822A]/20"
             >
-              <Phone className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-              <span className="whitespace-nowrap">{restaurantData.phones[0]}</span>
-            </a>
-
-            <a
-              href={restaurantData.googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-orange text-white text-xs font-sans font-semibold uppercase tracking-wider hover:bg-brand-orange-dark transition-all duration-200 shadow-sm whitespace-nowrap"
-            >
-              <Navigation className="w-3.5 h-3.5 shrink-0" />
-              <span>Visit</span>
+              <Phone className="w-3.5 h-3.5" />
+              <span>RESERVE DECK</span>
             </a>
           </div>
 
-          {/* Mobile-First Actions (Phone + Menu Toggle) */}
-          <div className="flex lg:hidden items-center gap-2 shrink-0">
-            <a
-              href={`tel:${restaurantData.phones[0]}`}
-              className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-orange text-white shadow-sm transition-transform active:scale-95"
-              aria-label={`Call ${restaurantData.phones[0]}`}
-            >
-              <Phone className="w-4 h-4" />
-            </a>
-
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className={`p-2 rounded-xl transition-colors shrink-0 ${
-                isScrolled
-                  ? 'text-brand-ink hover:bg-brand-sand'
-                  : 'text-white hover:bg-white/10'
-              }`}
-              aria-label="Open navigation menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-          </div>
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden text-[#FAF4F3] p-2 hover:text-[#F0822A] transition-colors z-50"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
+          </button>
         </div>
       </header>
 
-      {/* Mobile Drawer */}
-      <MobileDrawer
-        isOpen={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
-        navLinks={navLinks}
-      />
+      {/* Fullscreen Mobile Ink Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: '-100%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: '-100%' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-30 bg-[#101820] text-[#FAF4F3] pt-28 pb-12 px-6 flex flex-col justify-between lg:hidden border-b border-[#FAF4F3]/10 shadow-2xl"
+          >
+            <div className="space-y-6">
+              <div className="flex items-center gap-2 text-[#F0822A] font-mono text-xs tracking-widest uppercase">
+                <Anchor className="w-4 h-4" />
+                <span>NAUTICAL VOYAGE MENU</span>
+              </div>
+              <div className="flex flex-col space-y-4 font-serif text-2xl font-light">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="hover:text-[#F0822A] transition-colors border-b border-[#FAF4F3]/10 pb-3 flex items-center justify-between"
+                  >
+                    <span>{link.name}</span>
+                    <span className="text-xs font-mono text-[#F0822A]">&rarr;</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-[#FAF4F3]/10 space-y-4">
+              <a
+                href="tel:+919974615111"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-3 bg-[#F0822A] text-white py-4 rounded-full font-mono text-sm font-semibold tracking-wider uppercase"
+              >
+                <Phone className="w-4 h-4" />
+                <span>CALL TO RESERVE: +91 99746 15111</span>
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
-};
+}
+
+export default Navbar;
