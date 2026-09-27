@@ -1,224 +1,151 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Anchor, ChevronRight, Phone, Utensils, Compass } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Anchor, ChevronDown, Utensils, Phone } from 'lucide-react';
+import { WaveLine } from '../brand/WaveLine';
 
-const DISHES = [
-  {
-    id: 1,
-    name: 'Royal Paneer Shashlik Gravy',
-    subtitle: 'Signature Chef Special',
-    image: '/dishes/dish1.png',
-    fallback: '/dish-bowl-3d.png',
-  },
-  {
-    id: 2,
-    name: 'Unlimited Veg Feast Bowl',
-    subtitle: 'Pure Veg Starter to Dessert @ ₹350/-',
-    image: '/dishes/dish2.png',
-    fallback: '/dishes/dish1.png',
-  },
-  {
-    id: 3,
-    name: '3D Sizzler Royal Platter',
-    subtitle: 'Rainbow Shooters & Starters',
-    image: '/dishes/dish3.png',
-    fallback: '/dish-curry-original.png',
-  },
-];
+export const Hero: React.FC = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const { scrollY } = useScroll();
 
-export function Hero() {
-  const [angle, setAngle] = useState(0);
+  // Subtle parallax transform
+  const bgY = useTransform(scrollY, [0, 600], [0, 120]);
+  const textY = useTransform(scrollY, [0, 600], [0, -40]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0.2]);
 
-  // Smooth continuous animation frame update for left-to-right orbit
-  useEffect(() => {
-    let animationFrameId: number;
-    let startTime: number | null = null;
-    const DURATION = 12000; // 12 seconds for a complete rotation loop
-
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = (timestamp - startTime) % DURATION;
-      // angle goes from 0 to 2*PI continuously
-      const currentAngle = (progress / DURATION) * 2 * Math.PI;
-      setAngle(currentAngle);
-      animationFrameId = requestAnimationFrame(step);
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  // Subtle mouse depth move
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth - 0.5) * 12; // -6px to +6px
+    const y = (clientY / innerHeight - 0.5) * 12;
+    setMousePos({ x, y });
+  };
 
   return (
-    <section className="relative min-h-screen w-full bg-[#101820] text-[#FAF4F3] pt-28 pb-16 px-4 md:px-8 overflow-hidden flex flex-col justify-between select-none">
-      
-      {/* Ambient Water Shimmer Glow */}
-      <div className="absolute inset-0 z-0 opacity-25 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 via-[#3C3181] to-[#101820] pointer-events-none" />
-      <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#F0822A]/15 rounded-full filter blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#3C3181]/20 rounded-full filter blur-3xl pointer-events-none" />
+    <section
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen w-full bg-[#101820] text-[#FAF8F3] overflow-hidden flex flex-col justify-between select-none pt-28 pb-12"
+    >
+      {/* ─── FULL-BLEED CINEMATIC BACKGROUND MEDIA ─── */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ y: bgY, x: mousePos.x * 0.5 }}
+      >
+        {/* Authentic Vessel Night Exterior Image */}
+        <img
+          src="/cruise-sketch-detailed.png"
+          alt="Boat & Bites Night Vessel"
+          className="w-full h-full object-cover opacity-60 filter brightness-90 contrast-105"
+        />
+        {/* Dark Vignette & Gradient Overlays for Editorial Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#101820] via-[#101820]/40 to-[#101820]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#101820]/90 via-transparent to-[#101820]/50" />
+      </motion.div>
 
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto z-10">
-        
-        {/* Left Column: Headlines & CTAs */}
-        <div className="lg:col-span-6 space-y-6">
+      {/* Ambient Water Shimmer Radial Glow */}
+      <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#F0822A]/15 rounded-full blur-3xl pointer-events-none z-0" />
+
+      {/* ─── HERO EDITORIAL OVERLAY CONTENT ─── */}
+      <motion.div
+        style={{ y: textY, opacity }}
+        className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 relative z-10 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+      >
+        {/* Left Column: Asymmetric Editorial Copy */}
+        <div className="lg:col-span-8 space-y-6 text-left">
           
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#FAF4F3]/20 bg-[#FAF4F3]/5 backdrop-blur-md text-xs font-mono tracking-widest text-[#F0822A] uppercase"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#FAF8F3]/20 bg-[#FAF8F3]/10 backdrop-blur-md text-xs font-mono tracking-widest text-[#F0822A] uppercase"
           >
             <Anchor className="w-3.5 h-3.5" />
-            <span>Surat's Premier Waterfront Cruise Deck</span>
+            <span>GUJARAT'S FIRST CRUISE THEME RESTAURANT</span>
           </motion.div>
 
           {/* Masked Editorial Headline */}
           <div className="space-y-1 font-serif">
-            <div className="overflow-hidden">
-              <motion.h1 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#FAF4F3]"
-              >
-                Taste That <span className="italic font-normal text-[#F0822A]">Sails</span>
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.h1 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#FAF4F3]"
-              >
-                With Your <span className="underline decoration-[#3C3181] underline-offset-8">Heart.</span>
-              </motion.h1>
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-[#FAF8F3] leading-[0.95]"
+            >
+              DINNER HAS <br />
+              <span className="italic font-normal text-[#F0822A]">A DECK.</span>
+            </motion.h1>
           </div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-[#FAF4F3]/80 font-sans font-light max-w-xl leading-relaxed"
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="text-base sm:text-lg md:text-xl text-[#FAF8F3]/85 font-sans font-light max-w-xl leading-relaxed"
           >
-            Welcome aboard Boat &amp; Bites, Gujarat's iconic cruise theme restaurant at Anthem Circle. Experience our famous Unlimited Pure Veg Feast starting at <span className="text-[#F0822A] font-semibold">₹350/-</span> in a stunning waterfront atmosphere.
+            Step aboard Boat &amp; Bites at Anthem Circle, Surat. Experience our famous Unlimited Pure Veg Feast starting at <span className="text-[#F0822A] font-semibold">₹350/-</span> in an authentic waterfront cruise atmosphere.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center gap-4 pt-4"
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="flex flex-wrap items-center gap-4 pt-2"
           >
             <a
               href="#menu"
-              className="inline-flex items-center gap-3 bg-[#F0822A] hover:bg-[#d9711c] text-white px-7 py-4 rounded-full text-sm font-semibold tracking-wider uppercase transition-all duration-300 transform hover:scale-105 shadow-lg shadow-[#F0822A]/25"
+              className="inline-flex items-center gap-3 bg-[#F0822A] hover:bg-[#D96518] text-white px-7 py-4 rounded-full text-xs sm:text-sm font-semibold tracking-widest uppercase transition-all duration-300 transform hover:scale-105 shadow-xl shadow-[#F0822A]/20"
             >
               <Utensils className="w-4 h-4" />
               <span>Explore Unlimited Menu</span>
-              <ChevronRight className="w-4 h-4" />
             </a>
 
             <a
               href="tel:+919974615111"
-              className="inline-flex items-center gap-2 border border-[#FAF4F3]/20 hover:border-[#FAF4F3]/50 bg-[#FAF4F3]/5 hover:bg-[#FAF4F3]/10 text-[#FAF4F3] px-6 py-4 rounded-full text-sm font-medium tracking-wider uppercase transition-all duration-300"
+              className="inline-flex items-center gap-2 border border-white/20 hover:border-white/50 bg-white/5 hover:bg-white/10 text-white px-6 py-4 rounded-full text-xs sm:text-sm font-medium tracking-widest uppercase transition-all"
             >
               <Phone className="w-4 h-4 text-[#F0822A]" />
               <span>+91 99746 15111</span>
             </a>
           </motion.div>
-
         </div>
 
-        {/* Right Column: CONTINUOUSLY REVOLVING 3D DISHES (COCOVA STYLE LEFT-TO-RIGHT ORBIT) */}
-        <div className="lg:col-span-6 relative flex justify-center items-center py-10 min-h-[460px]">
-          
-          <div className="relative w-full max-w-[500px] h-[360px] flex items-center justify-center">
-            
-            {/* Soft Ambient Floor Platform Glow */}
-            <div className="absolute bottom-2 w-80 h-16 bg-[#F0822A]/15 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute bottom-8 w-96 h-1 bg-gradient-to-r from-transparent via-[#F0822A]/40 to-transparent pointer-events-none" />
-
-            {/* Render Dishes Orbiting Horizontal Ellipse */}
-            {DISHES.map((dish, index) => {
-              // Offset angle for 3 dishes spaced evenly around circle
-              const itemAngle = angle + (index * (2 * Math.PI / DISHES.length));
-              
-              // Elliptical coordinates (orbiting left to right)
-              const rx = 150; // horizontal radius
-              const ry = 40;  // vertical depth radius
-              
-              const x = Math.cos(itemAngle) * rx;
-              const y = Math.sin(itemAngle) * ry;
-              
-              // Depth scale (front is scale 1.15, back is scale 0.75)
-              const depthFactor = (Math.sin(itemAngle) + 1) / 2; // 0 to 1
-              const scale = 0.75 + depthFactor * 0.4; // 0.75 to 1.15
-              const opacity = 0.65 + depthFactor * 0.35; // 0.65 to 1.0
-              const zIndex = Math.round(depthFactor * 100);
-
-              return (
-                <div
-                  key={dish.id}
-                  className="absolute pointer-events-auto transition-transform duration-75 group flex flex-col items-center justify-center"
-                  style={{
-                    transform: `translate(${x}px, ${y}px) scale(${scale})`,
-                    opacity: opacity,
-                    zIndex: zIndex,
-                  }}
-                >
-                  {/* Dish Cutout Image Container */}
-                  <div className="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center">
-                    
-                    {/* Realistic Ground Drop Shadow (Contracts & darkens when closer, expands/softens when back) */}
-                    <div 
-                      className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/80 blur-md pointer-events-none transition-all duration-100"
-                      style={{
-                        width: `${110 * scale}px`,
-                        height: `${22 * scale}px`,
-                        opacity: 0.6 + depthFactor * 0.3,
-                      }}
-                    />
-
-                    {/* Dish Cutout Image */}
-                    <img
-                      src={dish.image}
-                      alt={dish.name}
-                      className="w-full h-full object-contain filter drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)] group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = dish.fallback;
-                      }}
-                    />
-
-                    {/* Hover Tooltip Pill */}
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-[#101820]/90 text-[#F0822A] px-3 py-1 rounded-full text-xs font-mono border border-[#F0822A]/30 shadow-xl">
-                      {dish.name}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-
-          </div>
-
+        {/* Right Column: Architectural Porthole Highlight Badge */}
+        <div className="lg:col-span-4 hidden lg:flex justify-end">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="relative w-56 h-56 rounded-full border-4 border-[#D4AF37] p-2 bg-[#101820]/80 backdrop-blur-md shadow-2xl flex flex-col items-center justify-center text-center group cursor-pointer"
+          >
+            <div className="absolute inset-1 rounded-full border border-amber-300/30" />
+            <img
+              src="/logo.png"
+              alt="Boat & Bites Mark"
+              className="w-16 h-16 object-contain mb-2 group-hover:scale-110 transition-transform duration-300"
+            />
+            <span className="font-serif text-lg font-medium text-[#FAF8F3] uppercase tracking-wide">
+              ANTHEM CIRCLE
+            </span>
+            <span className="font-mono text-[9px] text-[#F0822A] tracking-widest uppercase mt-1">
+              VIP ROAD · SURAT
+            </span>
+          </motion.div>
         </div>
+      </motion.div>
 
-      </div>
-
-      {/* Live Footer Info Ticker */}
-      <div className="w-full max-w-7xl mx-auto z-10 pt-8 border-t border-[#FAF4F3]/10 flex flex-col md:flex-row items-center justify-between text-xs font-mono text-[#FAF4F3]/70 gap-4">
-        <div className="flex items-center gap-3">
-          <Compass className="w-4 h-4 text-[#F0822A]" />
-          <span>LOCATION: Anthem Circle, VIP Road, Vesasu, Surat, Gujarat</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span>TIMINGS: 11:00 AM – 3:00 PM | 6:30 PM – 11:00 PM</span>
-        </div>
+      {/* ─── BOTTOM NAUTICAL WAVE & SCROLL PROMPT ─── */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 flex flex-col items-center gap-2">
+        <WaveLine className="w-full h-6 opacity-60" color="#F0822A" />
+        
+        <a
+          href="#boarding"
+          className="inline-flex flex-col items-center text-[#FAF8F3]/60 hover:text-[#F0822A] transition-colors gap-1 group"
+        >
+          <span className="font-mono text-[9px] tracking-widest uppercase">BOARD THE VESSEL</span>
+          <ChevronDown className="w-4 h-4 animate-bounce text-[#F0822A]" />
+        </a>
       </div>
     </section>
   );
-}
-
-export default Hero;
+};

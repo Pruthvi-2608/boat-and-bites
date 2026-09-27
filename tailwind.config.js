@@ -7,29 +7,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          ink: "#101820",
-          "ink-dark": "#0B1015",
-          "ink-soft": "#19222D",
-          cream: "#FAF8F3",
+        ink: {
+          DEFAULT: "#171717",
+          deep: "#101820",
+          dark: "#0B1015",
+          soft: "#1F2833",
+        },
+        cream: {
+          DEFAULT: "#FAF8F3",
+          warm: "#FFFDF9",
           sand: "#EEE8DC",
-          "warm-white": "#FFFDF9",
-          orange: "#F0822A",
-          "orange-dark": "#D96518",
-          "orange-light": "#FDF2E9",
-          "wave-blue": "#3C3181",
-          "wave-purple": "#6257A5",
-          "wave-light": "#EEECF7",
-          text: "#171717",
-          muted: "#6F6A63",
-          border: "rgba(23, 23, 23, 0.12)",
-          "border-dark": "rgba(255, 255, 255, 0.12)"
-        }
+        },
+        orange: {
+          brand: "#F0822A",
+          dark: "#D96518",
+          light: "#FDF2E9",
+        },
+        wave: {
+          blue: "#3C3181",
+          purple: "#6257A5",
+          light: "#EEECF7",
+        },
+        muted: "#6F6A63",
+        border: "rgba(23, 23, 23, 0.12)",
+        "border-dark": "rgba(255, 255, 255, 0.12)"
       },
       fontFamily: {
         serif: ["'Cormorant Garamond'", "serif"],
-        display: ["'Playfair Display'", "'Cormorant Garamond'", "serif"],
-        sans: ["'Plus Jakarta Sans'", "Manrope", "sans-serif"]
+        sans: ["'Manrope'", "sans-serif"],
+        mono: ["monospace"],
       },
       animation: {
         'wave-flow': 'waveFlow 8s ease-in-out infinite',
